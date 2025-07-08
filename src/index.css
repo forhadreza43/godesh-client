@@ -1,1 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap");
 @import "tailwindcss";
+
+/* #35495E */
+/* #41B883 */
+
+/* 68D8A3 */
+
+@theme {
+  --font-outfit: "Outfit", sans-serif;
+  --font-inter: "Inter", sans-serif;
+  --color-accent: #41b883;
+  --color-accent-hover: #38a172;
+  --color-primary: #35495e;
+  --color-primary-hover: #293849;
+}
+
+body {
+  @apply font-inter;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-outfit;
+}
