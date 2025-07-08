@@ -1,9 +1,10 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import RootLayout from "../Layouts/RootLayout/RootLayout";
 import Home from "../pages/Home";
 import DashboardLayout from "../Layouts/DashboardLayout/DashboardLayout";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
+import DashboardHome from "../pages/dashboard/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -20,14 +21,23 @@ const router = createBrowserRouter([
       },
       {
         path: "/register",
-        element: <SignUp/>,
+        element: <SignUp />,
       },
     ],
   },
   {
     path: "/dashboard",
     element: <DashboardLayout />,
-    children: [],
+    children: [
+      {
+        index: true,
+        element: <Navigate to="home" replace />,
+      },
+      {
+        path: "home",
+        element: <DashboardHome />,
+      },
+    ],
   },
 ]);
 

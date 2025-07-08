@@ -3,11 +3,9 @@ import { Link, useNavigate } from "react-router";
 import Button from "../components/Button/Button";
 import GoogleLogin from "../components/shared/GoogleLogin";
 import { useForm } from "react-hook-form";
-import { getImageUrl } from "../utils/utils";
-import { saveUserData } from "../../../../../Conceptual/plantnet/app/client/src/api/utils";
+import { getImageUrl, saveUserInfo } from "../utils/utils";
 import { useAuth } from "../hooks/useAuth";
 import toast from "react-hot-toast";
-
 const SignUp = () => {
   const {
     register,
@@ -42,7 +40,7 @@ const SignUp = () => {
       userInfo.image = photo;
       userInfo.authMethod = "email-password";
       userInfo.isRegistering = true;
-      await saveUserData(userInfo);
+      await saveUserInfo(userInfo);
       navigate("/");
       toast.success("Signup Successful");
     } catch (err) {

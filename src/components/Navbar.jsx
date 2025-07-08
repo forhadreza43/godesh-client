@@ -3,9 +3,10 @@ import { Link, NavLink } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import Logo from "./shared/Logo";
 import Button from "./Button/Button";
+import { IoIosLogOut, IoMdLogOut } from "react-icons/io";
 
 const Navbar = () => {
-  const { user, logout } = useAuth();
+  const { user, logOut } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -112,9 +113,9 @@ const Navbar = () => {
                   {dropdownOpen && (
                     <div
                       ref={dropdownRef}
-                      className="absolute right-0 z-50 mt-2 w-56 rounded-md bg-white py-3 font-medium text-gray-700 shadow-lg"
+                      className="absolute right-0 z-50 mt-63 w-56 rounded-md border border-accent/30 bg-white py-3 font-medium text-gray-700 shadow-lg"
                     >
-                      <div className="mb-2 border-b border-gray-200 px-4">
+                      <div className="mb-2 border-b border-accent/30 px-4">
                         <p className="truncate font-semibold">
                           {user.displayName}
                         </p>
@@ -128,7 +129,7 @@ const Navbar = () => {
                           <Link
                             to="/dashboard"
                             onClick={() => setDropdownOpen(false)}
-                            className="block px-4 py-2 hover:bg-indigo-100"
+                            className="block px-4 py-2 transition duration-300 hover:bg-accent hover:text-white"
                           >
                             Dashboard
                           </Link>
@@ -137,23 +138,25 @@ const Navbar = () => {
                           <Link
                             to="/offer-announcements"
                             onClick={() => setDropdownOpen(false)}
-                            className="block px-4 py-2 hover:bg-indigo-100"
+                            className="block px-4 py-2 transition duration-300 hover:bg-accent hover:text-white"
                           >
                             Offer Announcements
                           </Link>
                         </li>
                       </ul>
 
-                      <div className="mt-2 border-t border-gray-200 px-4 pt-2">
-                        <button
+                      <div className="mt-2 border-t border-accent/30 px-4 pt-2">
+                        <Button
                           onClick={() => {
-                            logout();
+                            logOut();
                             setDropdownOpen(false);
                           }}
-                          className="w-full text-left text-red-600 hover:text-red-800"
+                          icon={<IoMdLogOut />}
+                          variant="danger"
+                          className="w-full"
                         >
                           Logout
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   )}
@@ -296,7 +299,7 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={() => {
-                      logout();
+                      logOut();
                       setMobileMenuOpen(false);
                     }}
                     className="w-full rounded px-2 py-1 text-left text-red-600 hover:text-red-800"

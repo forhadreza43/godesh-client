@@ -1,14 +1,41 @@
-import { Link } from "react-router";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import Button from "../components/Button/Button";
 import GoogleLogin from "../components/shared/GoogleLogin";
+import { useAuth } from "../hooks/useAuth";
+import { saveUserInfo } from "../utils/utils";
+import toast from "react-hot-toast";
 
 const Login = () => {
-  const handleSignIn = (e) => {
+  const { signIn, user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  // const axios = useAxios();
+  const from = location?.state?.from?.pathname || "/";
+  if (user) return <Navigate to={from} replace={true} />;
+  // if (loading) return <LoadingSpinner />;
+  // form submit handler
+
+  const handleSignIn = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log(email, password);
+    try {
+      //User Login
+      await signIn(email, password);
+      const userInfo = {
+        email,
+      };
+      await saveUserInfo(userInfo);
+
+      navigate(from, { replace: true });
+      toast.success("Login Successful");
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.message);
+    }
   };
+
   return (
     <div className="mx-auto flex min-h-[calc(100dvh-80px)] w-11/12 max-w-7xl items-center justify-center">
       <div className="w-full max-w-md space-y-3 rounded-xl bg-green-50 p-8 shadow dark:bg-gray-50 dark:text-gray-800">
