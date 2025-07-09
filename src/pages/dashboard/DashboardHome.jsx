@@ -1,6 +1,6 @@
 const DashboardHome = () => {
   return (
-    <div className="h-[2000px]">
+    <div className="">
       <h1>DashBoard Home</h1>
     </div>
   );

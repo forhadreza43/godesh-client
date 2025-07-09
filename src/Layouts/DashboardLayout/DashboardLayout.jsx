@@ -1,10 +1,11 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import { Menu, X } from "lucide-react";
 import Logo from "../../components/shared/Logo";
 import useRole from "../../hooks/useRole";
 import { useAuth } from "../../hooks/useAuth";
+import Footer from "../../components/Footer";
 
 const getNavLinkClass = ({ isActive }) =>
   `block w-full px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
@@ -119,15 +120,16 @@ const DashboardLayout = () => {
               className="h-10 w-10 rounded-full object-cover ring-1 ring-accent ring-offset-2"
             />
             <div>
-              <h2 className="text-sm font-semibold">{ user?.displayName}</h2>
-              <a href="#" className="text-xs text-gray-600 hover:underline">
+              <h2 className="text-sm font-semibold">{user?.displayName}</h2>
+              <Link to='/dashboard/profile' className="text-xs text-gray-600 hover:underline">
                 View profile
-              </a>
+              </Link>
             </div>
           </div>
         </aside>
 
         {/* === Main content wrapper === */}
+
         <div className="m-4 flex flex-1 flex-col overflow-hidden rounded-lg">
           {/* Mobile Top Bar */}
           <header className="flex items-center justify-between border-b border-accent/30 p-4 md:hidden">
@@ -137,16 +139,16 @@ const DashboardLayout = () => {
             </button>
           </header>
 
-          {/* Sticky Header for Dashboard Pages */}
-          <div className="sticky top-0 z-20 border-b-1 border-accent/70 bg-green-50 px-4 py-3 shadow-sm md:px-6">
-            <h1 className="text-lg font-semibold text-gray-800">Dashboard</h1>
-          </div>
+         
+          
 
           {/* Main Content (Scrolls independently) */}
-          <main className="flex-1 overflow-y-auto rounded-t-xl bg-green-50 p-4 md:p-6">
+          <main className="flex-1 overflow-y-auto rounded-t-xl p-4 md:p-6">
             <Outlet />
+            {/* <Footer /> */}
           </main>
         </div>
+        
       </div>
     </div>
   );

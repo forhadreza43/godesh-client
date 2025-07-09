@@ -32,7 +32,9 @@ const Login = () => {
       toast.success("Login Successful");
     } catch (err) {
       console.log(err);
-      toast.error(err?.message);
+      if (err?.message === "Firebase: Error (auth/invalid-credential).") {
+        toast.error("Invalid Email or Password");
+      }
     }
   };
 
@@ -70,9 +72,7 @@ const Login = () => {
               className="w-full rounded-md border border-accent px-4 py-3 focus:outline-accent"
             />
             <div className="mt-1 flex justify-end text-xs font-semibold text-primary dark:text-gray-600">
-              <a rel="noopener noreferrer" href="#">
-                Forgot Password?
-              </a>
+              <Link to="/forgetPassword">Forgot Password?</Link>
             </div>
           </div>
           <Button className="w-full py-3" type="submit">

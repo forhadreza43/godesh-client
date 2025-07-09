@@ -5,6 +5,9 @@ import DashboardLayout from "../Layouts/DashboardLayout/DashboardLayout";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import DashboardHome from "../pages/dashboard/DashboardHome";
+import ForgotPassword from "../pages/ForgetPassword";
+import Profile from "../pages/dashboard/Profile";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -23,11 +26,20 @@ const router = createBrowserRouter([
         path: "/register",
         element: <SignUp />,
       },
+      {
+        path: "/forgetPassword",
+        element: <ForgotPassword />,
+      },
     ],
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoute>
+        {" "}
+        <DashboardLayout />,
+      </PrivateRoute>
+    ),
     children: [
       {
         index: true,
@@ -36,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "home",
         element: <DashboardHome />,
+      },
+      {
+        path: "/dashboard/profile",
+        element: <Profile />,
       },
     ],
   },

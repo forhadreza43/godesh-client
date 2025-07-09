@@ -7,7 +7,7 @@ const useRole = () => {
   const [loading, setLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
-    console.log(user);
+    // console.log(user);
 
   useEffect(() => {
     if (!user?.email) return;

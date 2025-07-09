@@ -4,12 +4,14 @@ import { useAuth } from "../hooks/useAuth";
 import Logo from "./shared/Logo";
 import Button from "./Button/Button";
 import { IoMdLogOut } from "react-icons/io";
+import { BiSolidOffer } from "react-icons/bi";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const [scrolled, setScrolled] = useState(false);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -22,13 +24,24 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-md">
+    <nav
+      className={`sticky top-0 z-50 w-full bg-green-50/70 backdrop-blur-2xl transition-all ${
+        scrolled ? "border-b border-accent/30" : ""
+      }`}
+    >
       <div className="mx-auto w-11/12">
         <div className="flex h-20 items-center justify-between">
-          {/* Logo and Site Name */}
           <Logo />
-
           {/* Desktop Menu */}
           <ul className="hidden space-x-8 font-medium text-gray-700 md:flex">
             <li>
@@ -115,7 +128,7 @@ const Navbar = () => {
                       ref={dropdownRef}
                       className="absolute right-0 z-50 mt-63 w-56 rounded-md border border-accent/30 bg-white py-3 text-sm font-medium text-primary shadow-lg"
                     >
-                      <div className="pb-2 border-b border-accent/30 px-4">
+                      <div className="border-b border-accent/30 px-4 pb-2">
                         <p className="truncate font-semibold">
                           {user.displayName}
                         </p>
@@ -138,20 +151,20 @@ const Navbar = () => {
                           <Link
                             to="/offer-announcements"
                             onClick={() => setDropdownOpen(false)}
-                            className="block px-4 py-2 transition duration-300 hover:bg-accent hover:text-white"
+                            className="flex items-center gap-2 px-4 py-2 transition duration-300 hover:bg-accent hover:text-white"
                           >
-                            Offer Announcements
+                            Offer <BiSolidOffer />
                           </Link>
                         </li>
                       </ul>
 
-                      <div className=" border-t border-accent/30 px-4 pt-2">
+                      <div className="border-t border-accent/30 px-4 pt-2">
                         <button
                           onClick={() => {
                             logOut();
                             setDropdownOpen(false);
                           }}
-                          className="flex w-full items-center gap-1 text-accent transition-all duration-300 hover:text-red-500 cursor-pointer hover:gap-3"
+                          className="flex w-full cursor-pointer items-center gap-1 text-accent transition-all duration-300 hover:gap-3 hover:text-red-500"
                         >
                           Logout <IoMdLogOut />
                         </button>
@@ -289,9 +302,9 @@ const Navbar = () => {
                   <Link
                     to="/offer-announcements"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block rounded px-2 py-1 hover:bg-accent hover:text-white"
+                    className="flex items-center gap-2 rounded px-2 py-1 hover:bg-accent hover:text-white"
                   >
-                    Offer Announcements
+                    Offer <BiSolidOffer />
                   </Link>
                 </li>
                 <li>
@@ -300,9 +313,9 @@ const Navbar = () => {
                       logOut();
                       setMobileMenuOpen(false);
                     }}
-                    className="w-full rounded px-2 py-1 text-left text-red-600 hover:text-red-800"
+                    className="flex w-full cursor-pointer items-center gap-1 rounded py-1 text-left text-accent duration-300 hover:gap-3 hover:text-red-500"
                   >
-                    Logout
+                    Logout <IoMdLogOut />
                   </button>
                 </li>
               </>
