@@ -3,17 +3,11 @@ import { Dialog, Transition } from "@headlessui/react";
 import { NavLink, Outlet } from "react-router";
 import { Menu, X } from "lucide-react";
 import Logo from "../../components/shared/Logo";
-
-const navItems = [
-  { name: "Home", path: "/dashboard/home" },
-  { name: "Profile", path: "/dashboard/profile" },
-  { name: "Orders", path: "/dashboard/orders" },
-  { name: "Settings", path: "/dashboard/settings" },
-  // Add more routes as needed
-];
+import useRole from "../../hooks/useRole";
+import { useAuth } from "../../hooks/useAuth";
 
 const getNavLinkClass = ({ isActive }) =>
-  `block w-full px-4 py-2 rounded-md text-sm font-medium transition-all ${
+  `block w-full px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
     isActive
       ? "bg-accent text-white"
       : "text-gray-700 hover:bg-accent hover:text-white"
@@ -21,9 +15,29 @@ const getNavLinkClass = ({ isActive }) =>
 
 const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const role = useRole(); // returns "admin", "tourist", or "guide"
+  const { user } = useAuth();
+
+  // ✅ Role-based menu items
+  const baseItems = [{ name: "Home", path: "/dashboard/home" }];
+  const roleItems = {
+    admin: [
+      { name: "Manage Users", path: "/dashboard/manage-users" },
+      { name: "Manage Tours", path: "/dashboard/manage-tours" },
+    ],
+    guide: [
+      { name: "My Assignments", path: "/dashboard/assignments" },
+      { name: "Earnings", path: "/dashboard/earnings" },
+    ],
+    tourist: [
+      { name: "My Bookings", path: "/dashboard/bookings" },
+      { name: "Favorites", path: "/dashboard/favorites" },
+    ],
+  };
+  const navItems = [...baseItems, ...(roleItems[role] || [])];
 
   return (
-    <div className="flex min-h-screen w-full bg-white dark:bg-gray-100">
+    <div className="flex h-screen w-full bg-white dark:bg-gray-100">
       {/* Mobile Sidebar */}
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog
@@ -80,51 +94,59 @@ const DashboardLayout = () => {
           </div>
         </Dialog>
       </Transition.Root>
-
-      {/* Desktop Sidebar */}
-      <aside className="hidden w-64 flex-col border-r bg-green-50 p-4 md:flex dark:bg-gray-50">
-        <div className="pb-6">
-          <Logo />
-        </div>
-        <nav className="flex-1">
-          <ul className="space-y-1">
-            {navItems.map(({ name, path }) => (
-              <li key={path}>
-                <NavLink to={path} className={getNavLinkClass}>
-                  {name}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <div className="mt-auto flex items-center gap-3 rounded-md bg-gray-200 p-3">
-          <img
-            src="https://source.unsplash.com/100x100/?portrait"
-            alt="User"
-            className="h-10 w-10 rounded-full object-cover"
-          />
-          <div>
-            <h2 className="text-sm font-semibold">Leroy Jenkins</h2>
-            <a href="#" className="text-xs text-gray-600 hover:underline">
-              View profile
-            </a>
+      <div className="flex h-screen w-full overflow-hidden">
+        {/* Desktop Sidebar */}
+        <aside className="my-4 ml-4 hidden w-64 flex-col rounded-xl bg-green-100 p-4 shadow-md md:flex dark:bg-gray-50">
+          <div className="pb-5">
+            <Logo />
           </div>
+          <div className="mb-5 border-t border-accent"></div>
+          <nav className="flex-1">
+            <ul className="space-y-1">
+              {navItems.map(({ name, path }) => (
+                <li key={path}>
+                  <NavLink to={path} className={getNavLinkClass}>
+                    {name}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div className="mt-auto flex items-center gap-3 rounded-md bg-green-200 p-3">
+            <img
+              src={user?.photoURL}
+              alt="User"
+              className="h-10 w-10 rounded-full object-cover ring-1 ring-accent ring-offset-2"
+            />
+            <div>
+              <h2 className="text-sm font-semibold">{ user?.displayName}</h2>
+              <a href="#" className="text-xs text-gray-600 hover:underline">
+                View profile
+              </a>
+            </div>
+          </div>
+        </aside>
+
+        {/* === Main content wrapper === */}
+        <div className="m-4 flex flex-1 flex-col overflow-hidden rounded-lg">
+          {/* Mobile Top Bar */}
+          <header className="flex items-center justify-between border-b border-accent/30 p-4 md:hidden">
+            <Logo />
+            <button onClick={() => setSidebarOpen(true)}>
+              <Menu className="h-6 w-6" />
+            </button>
+          </header>
+
+          {/* Sticky Header for Dashboard Pages */}
+          <div className="sticky top-0 z-20 border-b-1 border-accent/70 bg-green-50 px-4 py-3 shadow-sm md:px-6">
+            <h1 className="text-lg font-semibold text-gray-800">Dashboard</h1>
+          </div>
+
+          {/* Main Content (Scrolls independently) */}
+          <main className="flex-1 overflow-y-auto rounded-t-xl bg-green-50 p-4 md:p-6">
+            <Outlet />
+          </main>
         </div>
-      </aside>
-
-      {/* Main content */}
-      <div className="flex flex-1 flex-col">
-        {/* Mobile Top Bar */}
-        <header className="flex items-center justify-between border-b p-4 md:hidden">
-          <Logo />
-          <button onClick={() => setSidebarOpen(true)}>
-            <Menu className="h-6 w-6" />
-          </button>
-        </header>
-
-        <main className="flex-1 overflow-auto p-4">
-          <Outlet />
-        </main>
       </div>
     </div>
   );

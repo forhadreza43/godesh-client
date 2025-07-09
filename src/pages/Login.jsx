@@ -37,7 +37,7 @@ const Login = () => {
   };
 
   return (
-    <div className="mx-auto flex min-h-[calc(100dvh-80px)] w-11/12 max-w-7xl items-center justify-center">
+    <div className="mx-auto flex min-h-[calc(100dvh-80px)] w-11/12 items-center justify-center">
       <div className="w-full max-w-md space-y-3 rounded-xl bg-green-50 p-8 shadow dark:bg-gray-50 dark:text-gray-800">
         <h1 className="text-center text-2xl font-bold">Login</h1>
         <form

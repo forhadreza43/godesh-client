@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import Logo from "./shared/Logo";
 import Button from "./Button/Button";
-import { IoIosLogOut, IoMdLogOut } from "react-icons/io";
+import { IoMdLogOut } from "react-icons/io";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -24,7 +24,7 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-md">
-      <div className="mx-auto w-11/12 max-w-7xl">
+      <div className="mx-auto w-11/12">
         <div className="flex h-20 items-center justify-between">
           {/* Logo and Site Name */}
           <Logo />
@@ -113,9 +113,9 @@ const Navbar = () => {
                   {dropdownOpen && (
                     <div
                       ref={dropdownRef}
-                      className="absolute right-0 z-50 mt-63 w-56 rounded-md border border-accent/30 bg-white py-3 font-medium text-gray-700 shadow-lg"
+                      className="absolute right-0 z-50 mt-63 w-56 rounded-md border border-accent/30 bg-white py-3 text-sm font-medium text-primary shadow-lg"
                     >
-                      <div className="mb-2 border-b border-accent/30 px-4">
+                      <div className="pb-2 border-b border-accent/30 px-4">
                         <p className="truncate font-semibold">
                           {user.displayName}
                         </p>
@@ -145,18 +145,16 @@ const Navbar = () => {
                         </li>
                       </ul>
 
-                      <div className="mt-2 border-t border-accent/30 px-4 pt-2">
-                        <Button
+                      <div className=" border-t border-accent/30 px-4 pt-2">
+                        <button
                           onClick={() => {
                             logOut();
                             setDropdownOpen(false);
                           }}
-                          icon={<IoMdLogOut />}
-                          variant="danger"
-                          className="w-full"
+                          className="flex w-full items-center gap-1 text-accent transition-all duration-300 hover:text-red-500 cursor-pointer hover:gap-3"
                         >
-                          Logout
-                        </Button>
+                          Logout <IoMdLogOut />
+                        </button>
                       </div>
                     </div>
                   )}
@@ -168,7 +166,7 @@ const Navbar = () => {
             <div className="md:hidden">
               <button
                 onClick={() => setMobileMenuOpen((open) => !open)}
-                className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:text-accent focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:text-accent focus:ring-2 focus:ring-accent focus:outline-none"
                 aria-expanded={mobileMenuOpen}
                 aria-label="Toggle menu"
               >
@@ -282,7 +280,7 @@ const Navbar = () => {
                   <Link
                     to="/dashboard"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block rounded px-2 py-1 hover:bg-indigo-100"
+                    className="block rounded px-2 py-1 hover:bg-accent hover:text-white"
                   >
                     Dashboard
                   </Link>
@@ -291,7 +289,7 @@ const Navbar = () => {
                   <Link
                     to="/offer-announcements"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block rounded px-2 py-1 hover:bg-indigo-100"
+                    className="block rounded px-2 py-1 hover:bg-accent hover:text-white"
                   >
                     Offer Announcements
                   </Link>
