@@ -5,8 +5,8 @@ import Footer from "../../components/Footer";
 const RootLayout = () => {
   return (
     <>
-      {/* <Navbar /> */}
-      <div className="min-h-[calc(100vh-353px)] w-full flex items-center justify-center">
+      <Navbar />
+      <div className="min-h-[calc(100dvh-353px)] w-full">
         <Outlet />
       </div>
       <Footer />

@@ -7,6 +7,7 @@ import Button from "../../../components/Button/Button";
 import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import { Cloudinary } from "@cloudinary/url-gen/index";
 
 const AddPackages = () => {
   const {
@@ -98,9 +99,9 @@ const AddPackages = () => {
       }
 
       const uploadPromises = selectedFiles.map((file) => getImageUrl(file));
-      console.log(uploadPromises);
       const imageUrls = await Promise.all(uploadPromises);
-
+      console.log(imageUrls);
+      
       const finalPackageData = {
         packageName: data.packageName,
         tripTitle: data.tripTitle,

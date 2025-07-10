@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useAuth } from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
+import Button from "../../../components/Button/Button";
 
 const TouristProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +27,7 @@ const TouristProfile = () => {
   } = useForm({
     defaultValues: {
       name: userData?.name,
-      photo: userData?.image,
+      image: userData?.image,
     },
   });
   const toastIdRef = useRef(null);
@@ -39,7 +40,7 @@ const TouristProfile = () => {
       console.log("Profile Updated:", res);
       toast.dismiss(toastIdRef.current);
       toast.success("Profile Updated successfully!");
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: ["user", user?.email] });
       reset();
     },
     onError: (err) => {
@@ -56,41 +57,40 @@ const TouristProfile = () => {
     // Call update API here
     mutate(data);
   };
+  // console.log(userData);
   return (
     <div className="mx-auto mt-10 max-w-md rounded-lg bg-white p-6 shadow-md">
       <h2 className="mb-4 text-center text-2xl font-bold">
-        Welcome, {userData.name}!
+        Welcome, {userData?.name}!
       </h2>
       <div className="flex flex-col items-center gap-2">
         <img
-          src={userData.image}
+          src={userData?.image}
           alt="User"
           className="h-24 w-24 rounded-full border object-cover"
         />
         <p>
-          <strong>Name:</strong> {userData.name}
+          <strong>Name:</strong> {userData?.name}
         </p>
         <p>
-          <strong>Email:</strong> {userData.email}
+          <strong>Email:</strong> {userData?.email}
         </p>
         <p>
-          <strong>Role:</strong> {userData.role}
+          <strong>Role:</strong> {userData?.role}
         </p>
       </div>
 
       <div className="mt-6 flex justify-between gap-3">
-        <button
-          onClick={() => setIsOpen(true)}
-          className="w-full rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-        >
+        <Button onClick={() => setIsOpen(true)} className="flex-1">
           Edit Profile
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => navigate("/dashboard/join-as-guide")}
-          className="w-full rounded border border-blue-600 px-4 py-2 text-blue-600 hover:bg-blue-50"
+          variant="outline"
+          className=""
         >
           Apply For Tour Guide
-        </button>
+        </Button>
       </div>
 
       {/* Headless UI Modal */}
@@ -132,10 +132,11 @@ const TouristProfile = () => {
                       <label className="mb-1 block font-medium">Name</label>
                       <input
                         type="text"
+                        defaultValue={userData?.name}
                         {...register("name", { required: true })}
                         className="w-full rounded border border-gray-300 px-3 py-2"
                       />
-                      {errors.name && (
+                      {errors?.name && (
                         <p className="mt-1 text-sm text-red-600">
                           Name is required
                         </p>
@@ -148,6 +149,7 @@ const TouristProfile = () => {
                       </label>
                       <input
                         type="text"
+                        defaultValue={userData?.image}
                         {...register("photo", { required: true })}
                         className="w-full rounded border border-gray-300 px-3 py-2"
                       />
@@ -162,7 +164,7 @@ const TouristProfile = () => {
                       <label className="mb-1 block font-medium">Email</label>
                       <input
                         type="email"
-                        value={userData.email}
+                        value={userData?.email}
                         disabled
                         className="w-full rounded border border-gray-300 bg-gray-100 px-3 py-2"
                       />
@@ -172,26 +174,24 @@ const TouristProfile = () => {
                       <label className="mb-1 block font-medium">Role</label>
                       <input
                         type="text"
-                        value={userData.role}
+                        value={userData?.role}
                         disabled
                         className="w-full rounded border border-gray-300 bg-gray-100 px-3 py-2"
                       />
                     </div>
 
                     <div className="flex justify-end gap-3 pt-4">
-                      <button
+                      <Button
                         type="button"
                         onClick={() => setIsOpen(false)}
-                        className="rounded border border-gray-400 px-4 py-2 hover:bg-gray-100"
+                        className=""
+                        variant="danger"
                       >
                         Cancel
-                      </button>
-                      <button
-                        type="submit"
-                        className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-                      >
+                      </Button>
+                      <Button type="submit" className="">
                         Save Changes
-                      </button>
+                      </Button>
                     </div>
                   </form>
                 </Dialog.Panel>

@@ -16,6 +16,8 @@ import TouristProfile from "../pages/dashboard/Tourist/TouristProfile";
 import ManageStories from "../pages/dashboard/Tourist/ManageStories";
 import JoinAsGuide from "../pages/dashboard/Tourist/JoinAsGuide";
 import AddStories from "../pages/dashboard/Tourist/AddStories";
+import UpdateStory from "../pages/dashboard/Tourist/UpdateStory";
+import MyAssignedTours from "../pages/dashboard/Guide/MyAssignedTours";
 
 const router = createBrowserRouter([
   {
@@ -89,6 +91,15 @@ const router = createBrowserRouter([
       {
         path: "add-story",
         element: <AddStories />,
+      },
+      {
+        path: "update-story/:id",
+        element: <UpdateStory />,
+      },
+      //Guide route
+      {
+        path: "my-assign-tour",
+        element:<MyAssignedTours/>
       },
     ],
   },

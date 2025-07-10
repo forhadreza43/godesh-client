@@ -16,7 +16,7 @@ const getNavLinkClass = ({ isActive }) =>
 
 const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [role, loading] = useRole(); 
+  const [role, loading] = useRole();
   const { user } = useAuth();
 
   const roleItems = {
@@ -26,8 +26,10 @@ const DashboardLayout = () => {
       { name: "My Assigned Tours", path: "/dashboard/assigned-tours" },
     ],
     guide: [
-      { name: "My Assignments", path: "/dashboard/assignments" },
-      { name: "Earnings", path: "/dashboard/earnings" },
+      { name: "My Assigned Tours", path: "/dashboard/my-assign-tour" },
+      { name: "Manage Profile", path: "/dashboard/manage-tourist-profile" },
+      { name: "Add Story", path: "/dashboard/add-story" },
+      { name: "Manage Stories", path: "/dashboard/manage-stories" },
     ],
     tourist: [
       { name: "My Bookings", path: "/dashboard/my-bookings" },
@@ -37,7 +39,7 @@ const DashboardLayout = () => {
       { name: "Join As a Guide", path: "/dashboard/join-as-guide" },
     ],
   };
-  if(loading) return <Loading/>
+  if (loading) return <Loading />;
   const navItems = roleItems[role] || [];
 
   return (
@@ -98,24 +100,26 @@ const DashboardLayout = () => {
           </div>
         </Dialog>
       </Transition.Root>
-      <div className="flex h-screen w-full overflow-hidden">
+      <div className="flex w-full overflow-hidden">
         {/* Desktop Sidebar */}
-        <aside className="hidden w-64 flex-col bg-green-100 p-4 shadow-md md:flex dark:bg-gray-50">
-          <div className="pb-5">
-            <Logo />
+        <aside className="hidden w-64 flex-col bg-green-100 p-4 shadow-md md:flex ">
+          <div>
+            <div className="pb-5">
+              <Logo />
+            </div>
+            <div className="mb-5 border-t border-accent"></div>
+            <nav className="flex-1">
+              <ul className="space-y-1">
+                {navItems.map(({ name, path }) => (
+                  <li key={path}>
+                    <NavLink to={path} className={getNavLinkClass}>
+                      {name}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
-          <div className="mb-5 border-t border-accent"></div>
-          <nav className="flex-1">
-            <ul className="space-y-1">
-              {navItems.map(({ name, path }) => (
-                <li key={path}>
-                  <NavLink to={path} className={getNavLinkClass}>
-                    {name}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
           <div className="mt-auto flex items-center gap-3 rounded-md bg-green-200 p-3">
             <img
               src={user?.photoURL}

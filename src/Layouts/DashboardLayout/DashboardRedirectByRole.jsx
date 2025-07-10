@@ -8,7 +8,7 @@ const DashboardRedirectByRole = () => {
 
   const roleRedirects = {
     admin: "/dashboard/manage-profile",
-    guide: "/dashboard/assignments",
+    guide: "/dashboard/my-assign-tour",
     tourist: "/dashboard/my-bookings",
   };
   if (loading) return <Loading />;
