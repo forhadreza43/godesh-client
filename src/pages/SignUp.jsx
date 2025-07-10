@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { getImageUrl, saveUserInfo } from "../utils/utils";
 import { useAuth } from "../hooks/useAuth";
 import toast from "react-hot-toast";
+import Loading from "../components/shared/Loading";
 const SignUp = () => {
   const {
     register,
@@ -56,6 +57,7 @@ const SignUp = () => {
     }
   };
 
+  if (loading) return <Loading />;
   return (
     <div className="mx-auto flex min-h-[calc(100dvh-80px)] w-11/12 items-center justify-center">
       <div className="w-full max-w-md space-y-3 rounded-xl bg-green-50 p-8 shadow-lg dark:bg-gray-50 dark:text-gray-800">

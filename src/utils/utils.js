@@ -19,3 +19,4 @@ export const saveUserInfo = async(userInfo) => {
     );
     return res;
 }
+

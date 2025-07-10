@@ -5,6 +5,14 @@
 /* #41B883 */
 
 /* 68D8A3 */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
 
 @theme {
   --font-outfit: "Outfit", sans-serif;
@@ -22,10 +30,22 @@ body {
 h1,
 h2,
 h3,
-h4{
+h4 {
   @apply font-outfit;
 }
 
-.active{
-  @apply bg-accent text-white 
+.active {
+  @apply bg-accent text-white;
+}
+select,
+option,
+textarea,
+input {
+  @apply border border-accent text-sm text-primary focus:outline-accent bg-white;
+}
+input {
+  @apply w-full;
+}
+label {
+  @apply text-sm text-primary;
 }

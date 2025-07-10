@@ -1,10 +1,14 @@
 import Hero from "../components/Hero";
+import Navbar from "../components/Navbar";
+import Overview from "../components/Overview";
 
 const Home = () => {
   return (
-    <>
-      <Hero />
-    </>
+    <div className="flex flex-col">
+      <Navbar/>
+      <Hero /> 
+      <Overview />
+    </div>
   );
 };
 

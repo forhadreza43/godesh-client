@@ -5,7 +5,7 @@ import { Menu, X } from "lucide-react";
 import Logo from "../../components/shared/Logo";
 import useRole from "../../hooks/useRole";
 import { useAuth } from "../../hooks/useAuth";
-import Footer from "../../components/Footer";
+import Loading from "../../components/shared/Loading";
 
 const getNavLinkClass = ({ isActive }) =>
   `block w-full px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
@@ -16,26 +16,29 @@ const getNavLinkClass = ({ isActive }) =>
 
 const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const role = useRole(); // returns "admin", "tourist", or "guide"
+  const [role, loading] = useRole(); 
   const { user } = useAuth();
 
-  // ✅ Role-based menu items
-  const baseItems = [{ name: "Home", path: "/dashboard/home" }];
   const roleItems = {
     admin: [
-      { name: "Manage Users", path: "/dashboard/manage-users" },
-      { name: "Manage Tours", path: "/dashboard/manage-tours" },
+      { name: "Manage Profile", path: "/dashboard/manage-profile" },
+      { name: "Add Packages", path: "/dashboard/add-packages" },
+      { name: "My Assigned Tours", path: "/dashboard/assigned-tours" },
     ],
     guide: [
       { name: "My Assignments", path: "/dashboard/assignments" },
       { name: "Earnings", path: "/dashboard/earnings" },
     ],
     tourist: [
-      { name: "My Bookings", path: "/dashboard/bookings" },
-      { name: "Favorites", path: "/dashboard/favorites" },
+      { name: "My Bookings", path: "/dashboard/my-bookings" },
+      { name: "Manage Profile", path: "/dashboard/manage-tourist-profile" },
+      { name: "Add Story", path: "/dashboard/add-story" },
+      { name: "Manage Stories", path: "/dashboard/manage-stories" },
+      { name: "Join As a Guide", path: "/dashboard/join-as-guide" },
     ],
   };
-  const navItems = [...baseItems, ...(roleItems[role] || [])];
+  if(loading) return <Loading/>
+  const navItems = roleItems[role] || [];
 
   return (
     <div className="flex h-screen w-full bg-white dark:bg-gray-100">
@@ -97,7 +100,7 @@ const DashboardLayout = () => {
       </Transition.Root>
       <div className="flex h-screen w-full overflow-hidden">
         {/* Desktop Sidebar */}
-        <aside className="my-4 ml-4 hidden w-64 flex-col rounded-xl bg-green-100 p-4 shadow-md md:flex dark:bg-gray-50">
+        <aside className="hidden w-64 flex-col bg-green-100 p-4 shadow-md md:flex dark:bg-gray-50">
           <div className="pb-5">
             <Logo />
           </div>
@@ -121,7 +124,10 @@ const DashboardLayout = () => {
             />
             <div>
               <h2 className="text-sm font-semibold">{user?.displayName}</h2>
-              <Link to='/dashboard/profile' className="text-xs text-gray-600 hover:underline">
+              <Link
+                to="/dashboard/profile"
+                className="text-xs text-gray-600 hover:underline"
+              >
                 View profile
               </Link>
             </div>
@@ -130,7 +136,7 @@ const DashboardLayout = () => {
 
         {/* === Main content wrapper === */}
 
-        <div className="m-4 flex flex-1 flex-col overflow-hidden rounded-lg">
+        <div className="flex flex-1 flex-col overflow-hidden rounded-lg">
           {/* Mobile Top Bar */}
           <header className="flex items-center justify-between border-b border-accent/30 p-4 md:hidden">
             <Logo />
@@ -139,16 +145,12 @@ const DashboardLayout = () => {
             </button>
           </header>
 
-         
-          
-
           {/* Main Content (Scrolls independently) */}
-          <main className="flex-1 overflow-y-auto rounded-t-xl p-4 md:p-6">
+          <main className="flex-1 overflow-y-auto rounded-t-xl">
             <Outlet />
             {/* <Footer /> */}
           </main>
         </div>
-        
       </div>
     </div>
   );

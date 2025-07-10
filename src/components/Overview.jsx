@@ -1,45 +1,54 @@
-import { useRef, useEffect, useState } from "react";
-
+import overview from "../assets/overview.svg";
+import overviewl from "../assets/overview-left.png";
+import overviewr from "../assets/overview-right.svg";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "motion/react";
 const Overview = () => {
-  const videoRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  // Lazy load video only when in view
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.25 },
-    );
-    if (videoRef.current) observer.observe(videoRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section className="mx-auto my-16 w-11/12 max-w-7xl rounded-xl bg-green-50 px-4 py-10 shadow-md">
-      <h2 className="mb-6 text-center text-3xl font-bold text-accent">
+    <section className="my-16 rounded-xl py-10">
+      <h2 className="mb-6 pb-10 text-center text-3xl font-bold text-accent">
         Why Choose GoDesh?
       </h2>
-      <p className="mx-auto mb-10 max-w-2xl text-center text-gray-700">
-        GoDesh connects you with authentic local experiences, expert guides, and
-        streamlined booking for a seamless travel journey across Bangladesh.
-      </p>
+      <div className="mx-auto flex flex-col items-center gap-6 md:flex-row">
+        {/* Overview Image */}
+        <div className="relative h-[250px] w-full flex-1 rounded-xl sm:h-[300px] md:h-[400px]">
+          <img
+            src={overviewl}
+            alt="Overview Background"
+            className="h-full w-full rounded-xl object-cover"
+          />
 
-      <div ref={videoRef} className="overflow-hidden rounded-xl shadow-lg">
-        {isVisible ? (
-          <video
-            className="h-auto w-full"
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster="/video-placeholder.jpg" // optional image placeholder
+          {/* Animated image — hidden on small screens */}
+          <motion.div
+            className="absolute top-0 right-0 z-10 -translate-y-[10%] lg:-translate-x-[20%] lg:translate-y-[10%]"
+            animate={{ y: [0, -15, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
-            <source src="/videos/godesh-promo.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        ) : (
-          <div className="aspect-video animate-pulse rounded-xl bg-gray-200" />
-        )}
+            <img
+              src={overview}
+              alt="Overlay Animation"
+              className="w-full scale-60 lg:scale-120"
+            />
+          </motion.div>
+        </div>
+
+        {/* Embedded Video with Aspect Ratio */}
+        <div className="relative aspect-video mx-auto w-full flex-1 overflow-hidden rounded-xl">
+          <img
+            src={overviewr}
+            alt="Overview Background"
+            className="h-full w-full rounded-xl object-cover"
+          />
+
+          <iframe
+            className="absolute top-0 translate-x-[4%] lg:translate-0 h-full w-11/12 rounded-xl"
+            src="https://www.youtube.com/embed/E0dK9ZHTSj8?autoplay=1&mute=1&controls=1&loop=1&playlist=E0dK9ZHTSj8"
+            title="Aerial view of Bangladesh"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
       </div>
     </section>
   );
