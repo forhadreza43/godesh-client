@@ -1,5 +1,135 @@
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useUser } from "../../../hooks/useUser";
+import Loading from "../../../components/shared/Loading";
+
 const MyBookings = () => {
-  return <></>;
+  const axiosSecure = useAxiosSecure();
+  const { data: userData, isLoading: userLoading } = useUser();
+  const navigate = useNavigate();
+  const [guideMap, setGuideMap] = useState({});
+  const [packageMap, setPackageMap] = useState({});
+  const [statusFilter, setStatusFilter] = useState("");
+
+  // Fetch bookings
+  const { data: bookings = [], isLoading } = useQuery({
+    queryKey: ["bookings", userData?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/bookings/?email=${userData?.email}`);
+      return res.data;
+    },
+    enabled: !!userData?.email,
+  });
+
+  // Fetch guide and package info
+  useEffect(() => {
+    const fetchRelatedData = async () => {
+      const guideIds = [...new Set(bookings.map((b) => b.guideId))];
+      const packageIds = [...new Set(bookings.map((b) => b.packageId))];
+      const newGuideMap = {};
+      const newPackageMap = {};
+
+      await Promise.all([
+        ...guideIds.map(async (id) => {
+          const res = await axiosSecure.get(`/users/${id}`);
+          newGuideMap[id] = res.data.name;
+        }),
+        ...packageIds.map(async (id) => {
+          const res = await axiosSecure.get(`/packages/${id}`);
+          newPackageMap[id] = res.data;
+        }),
+      ]);
+
+      setGuideMap(newGuideMap);
+      setPackageMap(newPackageMap);
+    };
+
+    if (bookings.length) fetchRelatedData();
+  }, [bookings, axiosSecure]);
+
+  if (isLoading || userLoading) return <Loading />;
+
+  const filteredBookings = statusFilter
+    ? bookings.filter((b) => b.status.toLowerCase() === statusFilter)
+    : bookings;
+
+  return (
+    <div className="mx-auto w-11/12 py-10">
+      <h2 className="mb-6 text-2xl font-bold">My Bookings</h2>
+
+      <div className="mb-4">
+        <label className="mr-2 font-medium">Filter by status:</label>
+        <select
+          className="input rounded border px-2 py-1"
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
+          <option value="">All</option>
+          <option value="pending">Pending</option>
+          <option value="in review">In Review</option>
+          <option value="accepted">Accepted</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead>
+            <tr>
+              <th className="px-4 py-2 text-left">Package</th>
+              <th className="px-4 py-2 text-left">Guide</th>
+              <th className="px-4 py-2 text-left">Tour Date</th>
+              <th className="px-4 py-2 text-left">Price</th>
+              <th className="px-4 py-2 text-left">Status</th>
+              <th className="px-4 py-2 text-left">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-100">
+            {filteredBookings.map((booking) => {
+              const pkg = packageMap[booking.packageId];
+              return (
+                <tr key={booking._id}>
+                  <td className="px-4 py-2">
+                    {pkg?.packageName || "Loading..."}
+                  </td>
+                  <td className="px-4 py-2">
+                    {guideMap[booking.guideId] || "Loading..."}
+                  </td>
+                  <td className="px-4 py-2">
+                    {new Date(booking.tourDate).toLocaleDateString()}
+                  </td>
+                  <td className="px-4 py-2">৳ {booking.price}</td>
+                  <td className="px-4 py-2 capitalize">
+                    {booking.status.replace("in review", "In Review")}
+                  </td>
+                  <td className="space-x-2 px-4 py-2">
+                    {booking.status === "pending" && (
+                      <>
+                        <button
+                          onClick={() => navigate(`/dashboard/payment/${booking._id}`)}
+                          className="btn btn-sm btn-success"
+                        >
+                          Pay
+                        </button>
+                        <button
+                          onClick={() => console.log("Cancel", booking._id)}
+                          className="btn btn-sm btn-error"
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 };
 
 export default MyBookings;

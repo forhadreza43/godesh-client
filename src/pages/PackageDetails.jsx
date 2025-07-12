@@ -64,7 +64,10 @@ const PackageDetails = () => {
     const { tourDate, guideId } = formData;
     const booking = {
       packageId: id,
+      packageName: packageData?.packageName,
       touristId: userData?._id,
+      touristEmail: userData?.email,
+      price: packageData?.price,
       guideId,
       tourDate,
       status: "pending",
@@ -97,6 +100,22 @@ const PackageDetails = () => {
           />
         ))}
       </div>
+      <h2 className="mb-10 flex items-center justify-between text-2xl font-semibold">
+        {packageData.packageName}{" "}
+        <span className="rounded-full border-3 border-green-300 bg-green-700 px-6 py-2 text-white">
+          ৳ {packageData.price}
+        </span>
+      </h2>
+
+      <div className="mb-8">
+        <h2 className="mb-2 text-xl font-bold">Trip </h2>
+        <p>{packageData.tripTitle}</p>
+      </div>
+      <div className="mb-8">
+        <h2 className="mb-2 text-xl font-bold">Tour Type </h2>
+        <p>{packageData.tourType}</p>
+      </div>
+
       {/* About Section */}
       <div className="mb-8">
         <h2 className="mb-2 text-xl font-bold">About the Tour</h2>

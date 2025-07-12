@@ -25,6 +25,11 @@ import GuideProfile from "../pages/dashboard/Guide/GuideProfile";
 import PackageDetails from "../pages/PackageDetails";
 import AllPackages from "../pages/AllPackages";
 import GuideDetails from "../pages/GuideDetails";
+import Payment from "../pages/dashboard/Payment/Payment";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 
 const router = createBrowserRouter([
   {
@@ -122,6 +127,14 @@ const router = createBrowserRouter([
       {
         path: "update-story/:id",
         element: <UpdateStory />,
+      },
+      {
+        path: "payment/:bookingId",
+        element: (
+          <Elements stripe={stripePromise}>
+            <Payment />
+          </Elements>
+        ),
       },
       //Guide route
       {

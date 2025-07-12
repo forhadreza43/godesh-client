@@ -39,8 +39,7 @@ const AddPackages = () => {
       const res = await axiosSecure.post("/packages", packageInfo);
       return res;
     },
-    onSuccess: (res) => {
-      console.log("Package added:", res);
+    onSuccess: () => {
       toast.dismiss(toastIdRef.current);
       toast.success("Package added successfully!");
       reset();
@@ -101,12 +100,12 @@ const AddPackages = () => {
       const uploadPromises = selectedFiles.map((file) => getImageUrl(file));
       const imageUrls = await Promise.all(uploadPromises);
       // console.log(imageUrls);
-      
+
       const finalPackageData = {
         packageName: data.packageName,
         tripTitle: data.tripTitle,
         tourType: data.tourType,
-        price: data.price,
+        price: parseFloat(data.price),
         about: data.about,
         galleryImages: imageUrls,
         tourPlan: data.tourPlan,
