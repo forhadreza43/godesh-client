@@ -13,7 +13,7 @@ const Button = ({
   fullWidth = false,
 }) => {
   const baseStyles =
-    "inline-flex shadow items-center justify-center px-5 py-2 rounded transition duration-300 cursor-pointer";
+    "inline-flex shadow items-center text-nowrap justify-center px-2 py-1 rounded transition duration-300 cursor-pointer text-sm";
 
   const variants = {
     primary: "bg-accent text-white hover:bg-accent-hover",

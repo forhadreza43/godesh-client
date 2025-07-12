@@ -4,8 +4,8 @@ import { Link, NavLink, Outlet } from "react-router";
 import { Menu, X } from "lucide-react";
 import Logo from "../../components/shared/Logo";
 import useRole from "../../hooks/useRole";
-import { useAuth } from "../../hooks/useAuth";
 import Loading from "../../components/shared/Loading";
+import { useUser } from "../../hooks/useUser";
 
 const getNavLinkClass = ({ isActive }) =>
   `block w-full px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
@@ -17,17 +17,18 @@ const getNavLinkClass = ({ isActive }) =>
 const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [role, loading] = useRole();
-  const { user } = useAuth();
+  const { data: user, isLoading } = useUser();
 
   const roleItems = {
     admin: [
-      { name: "Manage Profile", path: "/dashboard/manage-profile" },
+      { name: "Manage Profile", path: "/dashboard/manage-admin-profile" },
+      { name: "Manage Users", path: "/dashboard/manage-users" },
+      { name: "Manage Candidates", path: "/dashboard/manage-candidates" },
       { name: "Add Packages", path: "/dashboard/add-packages" },
-      { name: "My Assigned Tours", path: "/dashboard/assigned-tours" },
     ],
     guide: [
       { name: "My Assigned Tours", path: "/dashboard/my-assign-tour" },
-      { name: "Manage Profile", path: "/dashboard/manage-tourist-profile" },
+      { name: "Manage Profile", path: "/dashboard/guide-profile" },
       { name: "Add Story", path: "/dashboard/add-story" },
       { name: "Manage Stories", path: "/dashboard/manage-stories" },
     ],
@@ -39,7 +40,7 @@ const DashboardLayout = () => {
       { name: "Join As a Guide", path: "/dashboard/join-as-guide" },
     ],
   };
-  if (loading) return <Loading />;
+  if (loading || isLoading) return <Loading />;
   const navItems = roleItems[role] || [];
 
   return (
@@ -102,7 +103,7 @@ const DashboardLayout = () => {
       </Transition.Root>
       <div className="flex w-full overflow-hidden">
         {/* Desktop Sidebar */}
-        <aside className="hidden w-64 flex-col bg-green-100 p-4 shadow-md md:flex ">
+        <aside className="hidden w-64 flex-col bg-green-100 p-4 shadow-md md:flex">
           <div>
             <div className="pb-5">
               <Logo />
@@ -122,18 +123,15 @@ const DashboardLayout = () => {
           </div>
           <div className="mt-auto flex items-center gap-3 rounded-md bg-green-200 p-3">
             <img
-              src={user?.photoURL}
+              src={user?.image}
               alt="User"
               className="h-10 w-10 rounded-full object-cover ring-1 ring-accent ring-offset-2"
             />
             <div>
-              <h2 className="text-sm font-semibold">{user?.displayName}</h2>
-              <Link
-                to="/dashboard/profile"
-                className="text-xs text-gray-600 hover:underline"
-              >
-                View profile
-              </Link>
+              <h2 className="max-w-[150px] truncate text-sm font-semibold">
+                {user?.name}
+              </h2>
+              <p className="max-w-[150px] truncate text-xs">{user?.email}</p>
             </div>
           </div>
         </aside>

@@ -95,7 +95,7 @@ const Navbar = () => {
           </ul>
 
           {/* Right side */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center">
             {/* Desktop Auth Buttons / User Dropdown */}
             <div className="relative hidden items-center md:flex">
               {!user ? (

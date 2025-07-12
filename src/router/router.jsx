@@ -7,7 +7,6 @@ import SignUp from "../pages/SignUp";
 import ForgotPassword from "../pages/ForgetPassword";
 import Profile from "../pages/dashboard/Profile";
 import PrivateRoute from "./PrivateRoute";
-import ManageProfile from "../pages/dashboard/Admin/ManageProfile";
 import AssignedTours from "../pages/dashboard/Admin/AssignedTours";
 import DashboardRedirectByRole from "../Layouts/DashboardLayout/DashboardRedirectByRole";
 import AddPackages from "../pages/dashboard/Admin/AddPackages";
@@ -18,6 +17,14 @@ import JoinAsGuide from "../pages/dashboard/Tourist/JoinAsGuide";
 import AddStories from "../pages/dashboard/Tourist/AddStories";
 import UpdateStory from "../pages/dashboard/Tourist/UpdateStory";
 import MyAssignedTours from "../pages/dashboard/Guide/MyAssignedTours";
+import ManageUsers from "../pages/dashboard/Admin/ManageUsers";
+import ManageCandidates from "../pages/dashboard/Admin/ManageCandidates";
+import ManageAdminProfile from "../pages/dashboard/Admin/ManageAdminProfile";
+import ApplicationDetails from "../pages/dashboard/Admin/ApplicationDetails";
+import GuideProfile from "../pages/dashboard/Guide/GuideProfile";
+import PackageDetails from "../pages/PackageDetails";
+import AllPackages from "../pages/AllPackages";
+import GuideDetails from "../pages/GuideDetails";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +42,18 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <SignUp />,
+      },
+      {
+        path: "/package/:id",
+        element: <PackageDetails />,
+      },
+      {
+        path: "/guide/:id",
+        element: <GuideDetails />,
+      },
+      {
+        path: "/all-packages",
+        element: <AllPackages />,
       },
       {
         path: "/forgetPassword",
@@ -60,16 +79,24 @@ const router = createBrowserRouter([
         element: <Profile />,
       },
       {
-        path: "manage-profile",
-        element: <ManageProfile />,
+        path: "application-details",
+        element: <ApplicationDetails />,
+      },
+      {
+        path: "manage-admin-profile",
+        element: <ManageAdminProfile />,
       },
       {
         path: "add-packages",
         element: <AddPackages />,
       },
       {
-        path: "assigned-tours",
-        element: <AssignedTours />,
+        path: "manage-users",
+        element: <ManageUsers />,
+      },
+      {
+        path: "manage-candidates",
+        element: <ManageCandidates />,
       },
       // tourist Routes
       {
@@ -99,7 +126,11 @@ const router = createBrowserRouter([
       //Guide route
       {
         path: "my-assign-tour",
-        element:<MyAssignedTours/>
+        element: <MyAssignedTours />,
+      },
+      {
+        path: "guide-profile",
+        element: <GuideProfile />,
       },
     ],
   },

@@ -3,8 +3,9 @@ import { Dialog, Transition } from "@headlessui/react";
 import Button from "../../../components/Button/Button";
 import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { useAuth } from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
+import { useUser } from "../../../hooks/useUser";
+import Loading from "../../../components/shared/Loading";
 
 const JoinAsGuide = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +16,7 @@ const JoinAsGuide = () => {
 
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
-  const { user } = useAuth();
+  const { data:user, isLoading } = useUser();
   const toastIdRef = useRef();
 
   const handleChange = (e) => {
@@ -34,9 +35,11 @@ const JoinAsGuide = () => {
         requestedRole: "guide",
       }),
     onSuccess: () => {
+      toast.dismiss(toastIdRef.current);
       toast.success("Role request sent successfully");
     },
     onError: () => {
+      toast.dismiss(toastIdRef.current);
       toast.error("Role request failed");
     },
   });
@@ -46,10 +49,8 @@ const JoinAsGuide = () => {
       axiosSecure.post("/guide-applications", {
         ...formData,
         email: user?.email,
+        name: user?.name,
       }),
-    onMutate: () => {
-      toastIdRef.current = toast.loading("Submitting application...");
-    },
     onSuccess: () => {
       toast.dismiss(toastIdRef.current);
       toast.success("Application submitted successfully");
@@ -68,9 +69,10 @@ const JoinAsGuide = () => {
   });
 
   const confirmSubmit = () => {
+    toastIdRef.current = toast.loading("Submitting application...");
     applicationMutation.mutate();
   };
-
+  if (isLoading) return <Loading />;
   return (
     <div className="mx-auto mt-10 max-w-xl rounded-lg bg-white p-6 shadow-md">
       <h2 className="mb-6 text-center text-2xl font-bold">

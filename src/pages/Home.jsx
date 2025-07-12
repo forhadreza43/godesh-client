@@ -1,12 +1,14 @@
 import Hero from "../components/Hero";
 import Overview from "../components/Overview";
+import TourismAndTravelGuide from "../components/TourismAndTravelGuide";
 
 const Home = () => {
   return (
-    <section>
+    <>
       <Hero />
       <Overview />
-    </section>
+      <TourismAndTravelGuide />
+    </>
   );
 };
 

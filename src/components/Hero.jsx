@@ -2,6 +2,7 @@ import Navbar from "./Navbar";
 import banner from "../assets/banner1.svg";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "motion/react";
+import { Link } from "react-router";
 const Hero = () => {
   return (
     <div className="bg-gradient-to-b from-green-50 to-green-100">
@@ -35,14 +36,12 @@ const Hero = () => {
               </p>
 
               <div className="mt-10 sm:flex sm:items-center sm:space-x-8">
-                <a
-                  href="#"
-                  title=""
+                <Link
+                  to="/all-packages"
                   className="inline-flex items-center justify-center bg-accent px-10 py-4 text-base font-semibold text-white transition-all duration-200 hover:bg-accent-hover"
-                  role="button"
                 >
                   Start exploring
-                </a>
+                </Link>
               </div>
             </div>
 

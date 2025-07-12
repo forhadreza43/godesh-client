@@ -100,7 +100,7 @@ const AddPackages = () => {
 
       const uploadPromises = selectedFiles.map((file) => getImageUrl(file));
       const imageUrls = await Promise.all(uploadPromises);
-      console.log(imageUrls);
+      // console.log(imageUrls);
       
       const finalPackageData = {
         packageName: data.packageName,
@@ -242,6 +242,11 @@ const AddPackages = () => {
                   {...register(`tourPlan.${index}.day`, { required: true })}
                   className="w-full rounded border p-2 md:w-1/3"
                   placeholder="Day 1"
+                />
+                <input
+                  {...register(`tourPlan.${index}.title`, { required: true })}
+                  className="w-full rounded border p-2 md:w-1/3"
+                  placeholder="Title"
                 />
                 <input
                   {...register(`tourPlan.${index}.description`, {

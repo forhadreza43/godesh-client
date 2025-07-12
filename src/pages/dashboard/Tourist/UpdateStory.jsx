@@ -8,6 +8,7 @@ import { getImageUrl } from "../../../utils/utils";
 import Modal from "../../../components/Modal/Modal";
 import Button from "../../../components/Button/Button";
 import { X } from "lucide-react";
+import Profile from "../../../components/Profile";
 
 const UpdateStory = () => {
   const { id } = useParams();
@@ -160,6 +161,7 @@ const UpdateStory = () => {
           </Button>
         </div>
       </form>
+      
 
       {/* Confirm remove image modal */}
       <Modal

@@ -105,7 +105,6 @@ const AddStory = () => {
         ...formData,
         images: imageUrls,
         createdBy:user?.email,
-        createdAt: new Date(),
       };
       // console.log(storyData);
 
@@ -123,96 +122,91 @@ const AddStory = () => {
   };
   
   return (
-    <div className="mx-auto mt-10 max-w-3xl rounded bg-white p-6 shadow">
-      <h2 className="mb-6 text-center text-2xl font-bold">
-        Add a Travel Story
-      </h2>
-
-      <form onSubmit={openConfirmation} className="space-y-4">
-        <div>
-          <label className="mb-1 block font-medium">Story Title</label>
-          <input
-            type="text"
-            name="title"
-            className="w-full rounded border border-gray-300 px-3 py-2"
-            value={formData.title}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div>
-          <label className="mb-1 block font-medium">Your Story</label>
-          <textarea
-            name="content"
-            rows="5"
-            className="w-full rounded border border-gray-300 px-3 py-2"
-            value={formData.content}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div>
-          <label className="mb-1 block font-medium">Upload Images</label>
-
-          <input
-            type="file"
-            accept=".jpg, .jpeg, .png"
-            multiple
-            onChange={handleFileChange}
-            className="w-full rounded border p-2"
-          />
-          <p className="mt-1 text-sm text-gray-500">
-            You can select multiple JPG, PNG images.
-          </p>
-
-          {/* File preview list */}
-          {selectedFiles.length > 0 && (
-            <ul className="mt-2 space-y-1">
-              {selectedFiles.map((file, index) => (
-                <li
-                  key={index}
-                  className="flex items-center justify-between rounded bg-gray-100 px-3 py-1"
-                >
-                  <span className="truncate text-sm">{file.name}</span>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveFile(index)}
-                    className="text-red-500 hover:text-red-700"
+    <div className="bg-green-50 h-full m-5 rounded-lg">
+      <div className="mx-auto  max-w-3xl rounded p-6">
+        <h2 className="mb-6 text-center text-2xl font-bold">
+          Add a Travel Story
+        </h2>
+        <form onSubmit={openConfirmation} className="space-y-4">
+          <div>
+            <label className="mb-1 block font-medium">Story Title</label>
+            <input
+              type="text"
+              name="title"
+              className="w-full rounded border border-gray-300 px-3 py-2"
+              value={formData.title}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label className="mb-1 block font-medium">Your Story</label>
+            <textarea
+              name="content"
+              rows="5"
+              className="w-full rounded border border-gray-300 px-3 py-2"
+              value={formData.content}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label className="mb-1 block font-medium">Upload Images</label>
+            <input
+              type="file"
+              accept=".jpg, .jpeg, .png"
+              multiple
+              onChange={handleFileChange}
+              className="w-full rounded border p-2"
+            />
+            <p className="mt-1 text-sm text-gray-500">
+              You can select multiple JPG, PNG images.
+            </p>
+            {/* File preview list */}
+            {selectedFiles.length > 0 && (
+              <ul className="mt-2 space-y-1">
+                {selectedFiles.map((file, index) => (
+                  <li
+                    key={index}
+                    className="flex items-center justify-between rounded bg-gray-100 px-3 py-1"
                   >
-                    <X className="h-4 w-4" />
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-
-        <Button
-          type="submit"
-          disabled={uploading}
-          className=""
+                    <span className="truncate text-sm">{file.name}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveFile(index)}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <Button
+            type="submit"
+            disabled={uploading}
+            className=""
+          >
+            {uploading ? "Submitting..." : "Submit Story"}
+          </Button>
+        </form>
+        {/* Reusable Confirmation Modal */}
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          title="Confirm Story Submission"
+          description="Are you sure you want to publish this story?"
+          confirmText="Yes, Submit"
+          cancelText="Cancel"
+          onConfirm={confirmSubmit}
         >
-          {uploading ? "Submitting..." : "Submit Story"}
-        </Button>
-      </form>
-
-      {/* Reusable Confirmation Modal */}
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Confirm Story Submission"
-        description="Are you sure you want to publish this story?"
-        confirmText="Yes, Submit"
-        cancelText="Cancel"
-        onConfirm={confirmSubmit}
-      >
-        <p className="mt-1 text-sm text-gray-500">
-          Your story and images will be saved permanently. You can manage it
-          later from your dashboard.
-        </p>
-      </Modal>
+          <p className="mt-1 text-sm text-gray-500">
+            Your story and images will be saved permanently. You can manage it
+            later from your dashboard.
+          </p>
+        </Modal>
+      </div>
     </div>
   );
 };
