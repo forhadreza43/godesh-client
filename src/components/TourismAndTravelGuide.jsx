@@ -18,7 +18,7 @@ const TourismAndTravelGuide = () => {
               to="/all-packages"
               className="group flex items-center gap-1 pr-3 font-semibold text-green-600 duration-300 hover:text-blue-500"
             >
-              View All
+              All Packages
               <span className="duration-300 group-hover:translate-x-3">
                 <MdKeyboardDoubleArrowRight size={20} />
               </span>

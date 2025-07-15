@@ -1,0 +1,71 @@
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import Loading from "../components/shared/Loading";
+import StoryList from "../components/Card/StoryList";
+
+const AllStories = () => {
+  const axiosSecure = useAxiosSecure();
+  const [page, setPage] = useState(1);
+  const limit = 10;
+
+  const { data: result = {}, isLoading } = useQuery({
+    queryKey: ["all-stories", page],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/all-stories", {
+        params: { page, limit, status: "approved" },
+      });
+      return res.data;
+    },
+    keepPreviousData: true,
+    retry: 1,
+  });
+
+  const stories = result.data || [];
+  const totalPages = result.totalPages || 1;
+
+  if (isLoading) return <Loading />;
+
+  return (
+    <div className="mx-auto w-11/12 py-10">
+      <h2 className="mb-6 text-center text-3xl font-bold">All Stories</h2>
+
+      <div className="grid gap-6 md:grid-cols-2">
+        {stories.map((story) => (
+          <StoryList key={story._id} story={story} />
+        ))}
+      </div>
+
+      {/* Pagination */}
+      <div className="mt-8 flex justify-center gap-2">
+        <button
+          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+          disabled={page === 1}
+          className="btn btn-sm"
+        >
+          Prev
+        </button>
+
+        {[...Array(totalPages).keys()].map((num) => (
+          <button
+            key={num}
+            onClick={() => setPage(num + 1)}
+            className={`btn btn-sm ${page === num + 1 ? "btn-primary" : "btn-outline"}`}
+          >
+            {num + 1}
+          </button>
+        ))}
+
+        <button
+          onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+          disabled={page === totalPages}
+          className="btn btn-sm"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default AllStories;

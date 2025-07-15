@@ -28,6 +28,7 @@ import Payment from "../pages/dashboard/Payment/Payment";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import MyAssignedTours from "../pages/dashboard/Guide/MyAssignedTours";
+import AllStories from "../pages/AllStories";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "/all-packages",
         element: <AllPackages />,
+      },
+      {
+        path: "/all-stories",
+        element: <AllStories/>,
       },
       {
         path: "/forgetPassword",

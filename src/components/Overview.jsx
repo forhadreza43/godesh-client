@@ -6,9 +6,6 @@ import { motion } from "motion/react";
 const Overview = () => {
   return (
     <section className="my-16 rounded-xl py-10">
-      <h2 className="mb-6 pb-10 text-center text-3xl font-bold text-accent">
-        Why Choose GoDesh?
-      </h2>
       <div className="mx-auto flex flex-col items-center gap-6 md:flex-row">
         {/* Overview Image */}
         <div className="relative h-[250px] w-full flex-1 rounded-xl sm:h-[300px] md:h-[400px]">

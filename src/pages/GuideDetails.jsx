@@ -21,7 +21,7 @@ const GuideDetails = () => {
     enabled: !!id,
   });
 // &status=approved
-  const { data: stories, isLoading: storiesLoading } = useQuery({
+  const { data: stories=[], isLoading: storiesLoading } = useQuery({
     queryKey: ["stories", guide?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -30,6 +30,8 @@ const GuideDetails = () => {
       return res.data;
     },
   });
+
+  
 
   if (isLoading || storiesLoading) return <Loading />;
   if (error)

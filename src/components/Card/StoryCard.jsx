@@ -1,6 +1,5 @@
 import { Link } from "react-router";
 import Button from "../Button/Button";
-
 const StoryCard = ({ story, onDelete }) => {
   return (
     <div className="rounded-md border border-accent/50 bg-green-50 p-4 shadow">
