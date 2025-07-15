@@ -31,6 +31,8 @@ import MyAssignedTours from "../pages/dashboard/Guide/MyAssignedTours";
 import AllStories from "../pages/AllStories";
 import AboutUs from "../pages/AboutUs";
 import AllGuides from "../pages/AllGuides";
+import AccessDenied from "../pages/AccessDenied";
+import RoleBasedRoute from "./RoleBasedRoute";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 
@@ -82,10 +84,14 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "/access-denied",
+    element: <AccessDenied />,
+  },
+  {
     path: "/dashboard",
     element: (
       <PrivateRoute>
-        <DashboardLayout />,
+        <DashboardLayout />
       </PrivateRoute>
     ),
     children: [
@@ -93,72 +99,135 @@ const router = createBrowserRouter([
         index: true,
         element: <DashboardRedirectByRole />,
       },
-      // Admin routes
+
+      // Admin-only routes
       {
         path: "profile",
-        element: <Profile />,
+        element: (
+          <RoleBasedRoute allowedRoles={["admin"]}>
+            <Profile />
+          </RoleBasedRoute>
+        ),
       },
       {
         path: "application-details",
-        element: <ApplicationDetails />,
+        element: (
+          <RoleBasedRoute allowedRoles={["admin"]}>
+            <ApplicationDetails />
+          </RoleBasedRoute>
+        ),
       },
       {
         path: "manage-admin-profile",
-        element: <ManageAdminProfile />,
+        element: (
+          <RoleBasedRoute allowedRoles={["admin"]}>
+            <ManageAdminProfile />
+          </RoleBasedRoute>
+        ),
       },
       {
         path: "add-packages",
-        element: <AddPackages />,
+        element: (
+          <RoleBasedRoute allowedRoles={["admin"]}>
+            <AddPackages />
+          </RoleBasedRoute>
+        ),
       },
       {
         path: "manage-users",
-        element: <ManageUsers />,
+        element: (
+          <RoleBasedRoute allowedRoles={["admin"]}>
+            <ManageUsers />
+          </RoleBasedRoute>
+        ),
       },
       {
         path: "manage-candidates",
-        element: <ManageCandidates />,
+        element: (
+          <RoleBasedRoute allowedRoles={["admin"]}>
+            <ManageCandidates />
+          </RoleBasedRoute>
+        ),
       },
-      // tourist Routes
+
+      //Tourist-only routes
       {
         path: "my-bookings",
-        element: <MyBookings />,
+        element: (
+          <RoleBasedRoute allowedRoles={["tourist"]}>
+            <MyBookings />
+          </RoleBasedRoute>
+        ),
       },
       {
         path: "manage-tourist-profile",
-        element: <TouristProfile />,
+        element: (
+          <RoleBasedRoute allowedRoles={["tourist"]}>
+            <TouristProfile />
+          </RoleBasedRoute>
+        ),
       },
       {
         path: "manage-stories",
-        element: <ManageStories />,
+        element: (
+          <RoleBasedRoute allowedRoles={["tourist"]}>
+            <ManageStories />
+          </RoleBasedRoute>
+        ),
       },
       {
         path: "join-as-guide",
-        element: <JoinAsGuide />,
+        element: (
+          <RoleBasedRoute allowedRoles={["tourist"]}>
+            <JoinAsGuide />
+          </RoleBasedRoute>
+        ),
       },
       {
         path: "add-story",
-        element: <AddStories />,
+        element: (
+          <RoleBasedRoute allowedRoles={["tourist", "guide"]}>
+            <AddStories />
+          </RoleBasedRoute>
+        ),
       },
       {
         path: "update-story/:id",
-        element: <UpdateStory />,
+        element: (
+          <RoleBasedRoute allowedRoles={["tourist", "guide"]}>
+            <UpdateStory />
+          </RoleBasedRoute>
+        ),
       },
+
+      // Shared route (Tourist → Pay for booking)
       {
         path: "payment/:bookingId",
         element: (
-          <Elements stripe={stripePromise}>
-            <Payment />
-          </Elements>
+          <RoleBasedRoute allowedRoles={["tourist"]}>
+            <Elements stripe={stripePromise}>
+              <Payment />
+            </Elements>
+          </RoleBasedRoute>
         ),
       },
-      //Guide route
+
+      //guide route
       {
         path: "my-assign-tour",
-        element: <MyAssignedTours />,
+        element: (
+          <RoleBasedRoute allowedRoles={["guide"]}>
+            <MyAssignedTours />
+          </RoleBasedRoute>
+        ),
       },
       {
         path: "guide-profile",
-        element: <GuideProfile />,
+        element: (
+          <RoleBasedRoute allowedRoles={["guide"]}>
+            <GuideProfile />
+          </RoleBasedRoute>
+        ),
       },
     ],
   },
