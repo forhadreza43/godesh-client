@@ -6,6 +6,7 @@ import Logo from "../../components/shared/Logo";
 import useRole from "../../hooks/useRole";
 import Loading from "../../components/shared/Loading";
 import { useUser } from "../../hooks/useUser";
+import PageTransitionWrapper from "../../Animation/PageTransitionWrapper";
 
 const getNavLinkClass = ({ isActive }) =>
   `block w-full px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
@@ -149,7 +150,9 @@ const DashboardLayout = () => {
 
           {/* Main Content (Scrolls independently) */}
           <main className="flex-1 overflow-y-auto rounded-t-xl">
-            <Outlet />
+            <PageTransitionWrapper>
+              <Outlet />
+            </PageTransitionWrapper>
             {/* <Footer /> */}
           </main>
         </div>

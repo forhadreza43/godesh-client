@@ -58,7 +58,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/community"
+                to="/all-stories"
                 className={({ isActive }) =>
                   isActive
                     ? "border-b-2 border-accent text-accent"
@@ -70,7 +70,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/about"
+                to="/about-us"
                 className={({ isActive }) =>
                   isActive
                     ? "border-b-2 border-accent text-accent"
@@ -82,7 +82,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/trips"
+                to="/all-packages"
                 className={({ isActive }) =>
                   isActive
                     ? "border-b-2 border-accent text-accent"

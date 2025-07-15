@@ -1,3 +1,4 @@
+import AnimatedSection from "../Animation/AnimatedSection";
 import Hero from "../components/Hero";
 import Overview from "../components/Overview";
 import SubscribeSection from "../components/SubscribeSection";
@@ -9,11 +10,21 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <Overview />
-      <TourismAndTravelGuide />
-      <TouristStories />
-      <WhyChooseUs />
-      <SubscribeSection/>
+      <AnimatedSection animation="fade-up">
+        <Overview />
+      </AnimatedSection>
+      <AnimatedSection animation="fade-up">
+        <TourismAndTravelGuide />
+      </AnimatedSection>
+      <AnimatedSection animation="fade-up">
+        <TouristStories />
+      </AnimatedSection>
+      <AnimatedSection animation="fade-up">
+        <WhyChooseUs />
+      </AnimatedSection>
+      <AnimatedSection animation="fade-up">
+      <SubscribeSection />
+      </AnimatedSection>
     </>
   );
 };

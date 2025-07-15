@@ -37,11 +37,11 @@ const AllStories = () => {
       </div>
 
       {/* Pagination */}
-      <div className="mt-8 flex justify-center gap-2">
+      <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
           disabled={page === 1}
-          className="btn btn-sm"
+          className="rounded bg-gray-200 px-3 py-1 disabled:opacity-50"
         >
           Prev
         </button>
@@ -50,7 +50,7 @@ const AllStories = () => {
           <button
             key={num}
             onClick={() => setPage(num + 1)}
-            className={`btn btn-sm ${page === num + 1 ? "btn-primary" : "btn-outline"}`}
+            className={`rounded px-3 py-1 ${page === num + 1 ? "bg-primary text-white" : "bg-gray-200"}`}
           >
             {num + 1}
           </button>
@@ -59,7 +59,7 @@ const AllStories = () => {
         <button
           onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={page === totalPages}
-          className="btn btn-sm"
+          className="rounded bg-gray-200 px-3 py-1 disabled:opacity-50"
         >
           Next
         </button>

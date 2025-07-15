@@ -29,7 +29,7 @@ const TourGuides = () => {
               <img
                 src={guide.image}
                 alt={guide.name}
-                className="mb-4 h-24 w-24 rounded-full object-cover ring-2 ring-primary ring-offset-2"
+                className="mb-4 h-20 w-20 rounded-full object-cover ring-2 ring-accent ring-offset-2"
               />
               <h3 className="text-lg font-semibold">{guide.name}</h3>
               <p className="text-sm text-gray-500">{guide.email}</p>

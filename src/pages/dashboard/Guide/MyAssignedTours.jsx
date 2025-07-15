@@ -89,13 +89,12 @@ const MyAssignedTours = () => {
 
   if (isLoading || userLoading) return <Loading />;
   return (
-    <div className="mx-auto w-11/12 py-10">
+    <div className="mx-auto m-5 py-10 px-5">
       <h2 className="mb-6 text-2xl font-bold">My Assigned Tours</h2>
 
       <div className="mb-4">
-        <label className="mr-2 font-medium">Filter by status:</label>
         <select
-          className="input rounded border px-2 py-1"
+          className="input rounded border border-green-200 px-1 py-1"
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
         >
@@ -138,14 +137,14 @@ const MyAssignedTours = () => {
                     <button
                       onClick={() => acceptMutation.mutate(b._id)}
                       disabled={b.status !== "in review"}
-                      className="btn btn-sm btn-primary disabled:opacity-50"
+                      className="btn btn-sm btn-primary cursor-pointer rounded bg-green-500 px-3 py-1 text-xs text-white hover:bg-green-700 disabled:opacity-50"
                     >
                       Accept
                     </button>
                     <button
                       onClick={() => setSelectedRejectId(b._id)}
                       disabled={b.status !== "in review"}
-                      className="btn btn-sm btn-error disabled:opacity-50"
+                      className="btn btn-sm btn-primary cursor-pointer rounded bg-red-500 px-3 py-1 text-xs text-white hover:bg-red-700 disabled:opacity-50"
                     >
                       Reject
                     </button>
@@ -157,27 +156,32 @@ const MyAssignedTours = () => {
         </table>
 
         {/* Pagination */}
-        <div className="mt-6 flex justify-center gap-2">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+          {/* Prev button */}
           <button
-            disabled={page === 1}
-            className="btn btn-sm"
             onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+            disabled={page === 1}
+            className="rounded bg-gray-200 px-3 py-1 disabled:opacity-50"
           >
             Prev
           </button>
+
+          {/* Page numbers */}
           {[...Array(totalPages).keys()].map((num) => (
             <button
               key={num}
               onClick={() => setPage(num + 1)}
-              className={`btn btn-sm ${page === num + 1 ? "btn-primary" : "btn-outline"}`}
+              className={`rounded px-3 py-1 ${page === num + 1 ? "bg-primary text-white" : "bg-gray-200"}`}
             >
               {num + 1}
             </button>
           ))}
+
+          {/* Next button */}
           <button
-            disabled={page === totalPages}
-            className="btn btn-sm"
             onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+            disabled={page === totalPages}
+            className="rounded bg-gray-200 px-3 py-1 disabled:opacity-50"
           >
             Next
           </button>
