@@ -6,7 +6,7 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { useAuth } from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
 import Modal from "../../../components/Modal/Modal";
-
+import './payment.css'
 const Payment = () => {
   const { bookingId } = useParams();
   const axiosSecure = useAxiosSecure();
@@ -52,7 +52,9 @@ const Payment = () => {
 
   const paymentMutation = useMutation({
     mutationFn: async ({ paymentIntent, booking }) => {
-      await axiosSecure.patch(`/bookings/${bookingId}/paid`);
+      await axiosSecure.patch(`/bookings/${bookingId}/status`, {
+        status: "in review",
+      });
       await axiosSecure.post("/payments", {
         bookingId,
         amount: booking.price,

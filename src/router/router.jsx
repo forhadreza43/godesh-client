@@ -16,7 +16,6 @@ import ManageStories from "../pages/dashboard/Tourist/ManageStories";
 import JoinAsGuide from "../pages/dashboard/Tourist/JoinAsGuide";
 import AddStories from "../pages/dashboard/Tourist/AddStories";
 import UpdateStory from "../pages/dashboard/Tourist/UpdateStory";
-import MyAssignedTours from "../pages/dashboard/Guide/MyAssignedTours";
 import ManageUsers from "../pages/dashboard/Admin/ManageUsers";
 import ManageCandidates from "../pages/dashboard/Admin/ManageCandidates";
 import ManageAdminProfile from "../pages/dashboard/Admin/ManageAdminProfile";
@@ -28,6 +27,7 @@ import GuideDetails from "../pages/GuideDetails";
 import Payment from "../pages/dashboard/Payment/Payment";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import MyAssignedTours from "../pages/dashboard/Guide/MyAssignedTours";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 

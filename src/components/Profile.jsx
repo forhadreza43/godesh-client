@@ -17,7 +17,6 @@ const Profile = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
-  const { user, loading: userLoading } = useAuth();
   const [role, loading] = useRole();
   const queryClient = useQueryClient();
 
@@ -35,17 +34,22 @@ const Profile = () => {
       image: userData?.image,
     },
   });
+
   const toastIdRef = useRef(null);
+
   const { mutate } = useMutation({
     mutationFn: async (data) => {
-      const res = await axiosSecure.patch(`/users?email=${user?.email}`, data);
+      const res = await axiosSecure.patch(
+        `/users?email=${userData?.email}`,
+        data,
+      );
       return res;
     },
     onSuccess: (res) => {
       console.log("Profile Updated:", res);
       toast.dismiss(toastIdRef.current);
       toast.success("Profile Updated successfully!");
-      queryClient.invalidateQueries({ queryKey: ["user", user?.email] });
+      queryClient.invalidateQueries({ queryKey: ["user", userData?.email] });
       reset();
     },
     onError: (err) => {
@@ -55,20 +59,18 @@ const Profile = () => {
     },
   });
 
-  if (isLoading || loading || userLoading || authLoading) return <Loading />;
   const onSubmit = (data) => {
     toastIdRef.current = toast.loading("Updating Profile");
     setIsOpenModal(false);
-    console.log(data);
-    //   setEditData(data);
     mutate({
       name: data?.name,
       image: data?.image,
     });
-    updateUserProfile({ displayName: data?.name, photoURL: data?.image });
+    updateUserProfile(data?.name, data?.image);
   };
 
-  // console.log(userData);
+  if (isLoading || loading || authLoading) return <Loading />;
+  
   return (
     <div className="mx-auto max-w-md">
       {role && role !== "admin" && (
@@ -96,7 +98,10 @@ const Profile = () => {
       <div className="mt-10 flex justify-between gap-3">
         <Button
           icon={<FaRegEdit />}
-          onClick={() => setIsOpenModal(true)}
+          onClick={() => {
+            setIsOpenModal(true);
+            reset({ name: userData?.name, image: userData?.image });
+          }}
           className="max-w-30 flex-1 py-2"
         >
           Edit Profile
@@ -126,7 +131,7 @@ const Profile = () => {
             <label className="mb-1 block font-medium">Name</label>
             <input
               type="text"
-              defaultValue={userData?.name}
+              // defaultValue={userData?.name}
               {...register("name", { required: true })}
               className="w-full rounded border border-gray-300 px-3 py-2"
             />
@@ -140,10 +145,10 @@ const Profile = () => {
             <input
               type="text"
               defaultValue={userData?.image}
-              {...register("photo", { required: true })}
+              {...register("image", { required: true })}
               className="w-full rounded border border-gray-300 px-3 py-2"
             />
-            {errors.photo && (
+            {errors.image && (
               <p className="mt-1 text-sm text-red-600">Photo URL is required</p>
             )}
           </div>

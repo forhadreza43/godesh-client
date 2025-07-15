@@ -1,9 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useUser } from "../../../hooks/useUser";
 import Loading from "../../../components/shared/Loading";
+import toast from "react-hot-toast";
 
 const MyBookings = () => {
   const axiosSecure = useAxiosSecure();
@@ -14,13 +15,31 @@ const MyBookings = () => {
   const [statusFilter, setStatusFilter] = useState("");
 
   // Fetch bookings
-  const { data: bookings = [], isLoading } = useQuery({
+  const {
+    data: bookings = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["bookings", userData?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/bookings/?email=${userData?.email}`);
       return res.data;
     },
     enabled: !!userData?.email,
+  });
+
+  // Cancel booking mutation
+  const cancelBookingMutation = useMutation({
+    mutationFn: async (bookingId) => {
+      return axiosSecure.delete(`/bookings/${bookingId}`);
+    },
+    onSuccess: () => {
+      toast.success("Booking cancelled successfully");
+      refetch();
+    },
+    onError: () => {
+      toast.error("Failed to cancel booking");
+    },
   });
 
   // Fetch guide and package info
@@ -108,13 +127,17 @@ const MyBookings = () => {
                     {booking.status === "pending" && (
                       <>
                         <button
-                          onClick={() => navigate(`/dashboard/payment/${booking._id}`)}
+                          onClick={() =>
+                            navigate(`/dashboard/payment/${booking._id}`)
+                          }
                           className="btn btn-sm btn-success"
                         >
                           Pay
                         </button>
                         <button
-                          onClick={() => console.log("Cancel", booking._id)}
+                          onClick={() =>
+                            cancelBookingMutation.mutate(booking._id)
+                          }
                           className="btn btn-sm btn-error"
                         >
                           Cancel
