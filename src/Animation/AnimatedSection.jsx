@@ -19,7 +19,7 @@ const AnimatedSection = ({ children, animation = "fade-up" }) => {
         animProps = { x: 100, opacity: 0 };
         break;
       case "fade-up":
-        animProps = { y: 50, opacity: 0 };
+        animProps = { y: 100, opacity: 0 };
         break;
       case "scale-in":
         animProps = { scale: 0.8, opacity: 0 };

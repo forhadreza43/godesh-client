@@ -123,11 +123,11 @@ const AddPackages = () => {
   };
 
   return (
-    <div className="mx-auto h-full w-full rounded-lg bg-white">
-      <Header title="Add New Tour Package" />
-      {/* <h2 className="mb-6 text-center text-2xl font-bold">
+    <div className="mx-auto h-screen py-10  w-full rounded-lg bg-white">
+      {/* <Header title="Add New Tour Package" /> */}
+      <h2 className="mb-6 text-center text-2xl font-bold">
         Add New Tour Package
-      </h2> */}
+      </h2>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="mx-auto max-w-2xl space-y-3 rounded-lg bg-green-50 p-6 lg:space-y-6"

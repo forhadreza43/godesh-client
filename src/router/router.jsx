@@ -30,6 +30,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import MyAssignedTours from "../pages/dashboard/Guide/MyAssignedTours";
 import AllStories from "../pages/AllStories";
 import AboutUs from "../pages/AboutUs";
+import AllGuides from "../pages/AllGuides";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 
@@ -64,7 +65,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/all-stories",
-        element: <AllStories/>,
+        element: <AllStories />,
+      },
+      {
+        path: "/all-guides",
+        element: <AllGuides />,
       },
       {
         path: "/forgetPassword",

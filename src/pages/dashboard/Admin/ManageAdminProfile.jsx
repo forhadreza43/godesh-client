@@ -36,12 +36,15 @@ const ManageAdminProfile = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="mx-auto  space-y-8 p-6">
+    <div className="mx-auto space-y-8 p-6">
       <h2 className="text-3xl font-bold">Welcome, {user?.name}</h2>
 
       {/* Stats */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <StatCard title="Total Payment" value={`$${stats.totalPayment || 0}`} />
+        <StatCard
+          title="Total Payment"
+          value={`$${stats.totalBookingPrice || 0}`}
+        />
         <StatCard title="Total Tour Guides" value={stats.totalGuides} />
         <StatCard title="Total Tourist" value={stats.totalTourist} />
         <StatCard
@@ -53,7 +56,7 @@ const ManageAdminProfile = () => {
       </div>
 
       {/* Admin Info */}
-      <div className="bg-green-100 py-20 rounded-lg shadow">
+      <div className="rounded-lg bg-green-100 py-20 shadow">
         <Profile />
       </div>
 

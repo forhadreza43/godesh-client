@@ -70,18 +70,6 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/about-us"
-                className={({ isActive }) =>
-                  isActive
-                    ? "border-b-2 border-accent text-accent"
-                    : "duration-300 hover:text-accent"
-                }
-              >
-                About Us
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
                 to="/all-packages"
                 className={({ isActive }) =>
                   isActive
@@ -90,6 +78,18 @@ const Navbar = () => {
                 }
               >
                 Trips
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/about-us"
+                className={({ isActive }) =>
+                  isActive
+                    ? "border-b-2 border-accent text-accent"
+                    : "duration-300 hover:text-accent"
+                }
+              >
+                About Us
               </NavLink>
             </li>
           </ul>
@@ -149,7 +149,7 @@ const Navbar = () => {
                         </li>
                         <li>
                           <Link
-                            to="/offer-announcements"
+                            to=""
                             onClick={() => setDropdownOpen(false)}
                             className="flex items-center gap-2 px-4 py-2 transition duration-300 hover:bg-accent hover:text-white"
                           >
