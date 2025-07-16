@@ -51,13 +51,31 @@ const ManageStories = () => {
     setDeleteCardId(id);
   };
 
-  if (isLoading) return <Loading />;
+  // if (isLoading) return <Loading />;
   // console.log(stories);
   return (
-    <div className="grid grid-cols-1 gap-6 p-4 md:grid-cols-2 lg:grid-cols-3">
-      {stories.map((story) => (
-        <StoryCard key={story._id} story={story} onDelete={openConfirmation} />
-      ))}
+    <div className="p-4">
+      {isLoading && (
+        <div className="flex h-screen items-center justify-center">
+          <Loading fullscreen={false} />
+        </div>
+      )}
+      {!isLoading && stories.length === 0 ? (
+        <p className="mt-10 text-center text-lg text-gray-500">
+          No story found.
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {stories.map((story) => (
+            <StoryCard
+              key={story._id}
+              story={story}
+              onDelete={openConfirmation}
+            />
+          ))}
+        </div>
+      )}
+
       {/* Reusable Confirmation Modal */}
       <Modal
         isOpen={isModalOpen}
@@ -69,7 +87,7 @@ const ManageStories = () => {
         onConfirm={confirmSubmit}
       >
         <p className="mt-1 text-sm text-gray-500">
-          Your story and images will be Deleted permanently.
+          Your story and images will be deleted permanently.
         </p>
       </Modal>
     </div>

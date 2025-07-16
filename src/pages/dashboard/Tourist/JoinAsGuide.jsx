@@ -16,7 +16,7 @@ const JoinAsGuide = () => {
 
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
-  const { data:user, isLoading } = useUser();
+  const { data: user, isLoading } = useUser();
   const toastIdRef = useRef();
 
   const handleChange = (e) => {
@@ -35,12 +35,11 @@ const JoinAsGuide = () => {
         requestedRole: "guide",
       }),
     onSuccess: () => {
-      toast.dismiss(toastIdRef.current);
-      toast.success("Role request sent successfully");
-    },
-    onError: () => {
-      toast.dismiss(toastIdRef.current);
-      toast.error("Role request failed");
+      setFormData({
+        title: "",
+        reason: "",
+        cvLink: "",
+      });
     },
   });
 

@@ -103,7 +103,7 @@ const PackageDetails = () => {
       <h2 className="mb-10 flex items-center justify-between text-2xl font-semibold">
         {packageData.packageName}{" "}
         <span className="rounded-full border-3 border-green-300 bg-green-700 px-6 py-2 text-white">
-          ৳ {packageData.price}
+          $ {packageData.price}
         </span>
       </h2>
 
@@ -200,7 +200,7 @@ const PackageDetails = () => {
             <p className="md:mt-5">
               Price:{" "}
               <span className="ml-2 rounded-full border-2 border-red-300 bg-red-700 px-4 py-1 text-white">
-                ৳ {packageData.price}
+                $ {packageData.price}
               </span>
             </p>
           </div>
@@ -258,7 +258,7 @@ const PackageDetails = () => {
 
         <Button
           type="submit"
-          disabled={!user}
+          disabled={!user || userData?.role !== "tourist"}
           className="btn btn-primary w-full py-2"
         >
           Book Now

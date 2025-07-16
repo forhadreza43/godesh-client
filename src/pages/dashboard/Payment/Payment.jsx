@@ -156,13 +156,13 @@ const Payment = () => {
         <button
           type="submit"
           disabled={!stripe || processing}
-          className="btn btn-success"
+          className="btn btn-sm cursor-pointer rounded bg-green-500 px-3 py-1  text-white duration-300 hover:bg-green-600"
         >
-          {processing ? "Processing..." : `Pay ৳${booking.price}`}
+          {processing ? "Processing..." : `Pay $${booking.price}`}
         </button>
         <button
           type="button"
-          className="btn btn-error"
+          className="btn btn-sm cursor-pointer rounded bg-red-500 px-3 py-1  text-white duration-300 hover:bg-red-600"
           onClick={() => setIsOpenModal(false)}
         >
           Cancel

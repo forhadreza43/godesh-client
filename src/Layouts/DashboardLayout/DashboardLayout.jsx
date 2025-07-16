@@ -46,7 +46,7 @@ const DashboardLayout = () => {
 
   return (
     <div className="flex h-screen w-full bg-white dark:bg-gray-100">
-      {/* Mobile Sidebar */}
+      {/* ====== Mobile Sidebar ====== */}
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -102,60 +102,57 @@ const DashboardLayout = () => {
           </div>
         </Dialog>
       </Transition.Root>
-      <div className="flex w-full overflow-hidden">
-        {/* Desktop Sidebar */}
-        <aside className="hidden w-64 flex-col bg-green-100 p-4 shadow-md md:flex">
-          <div>
-            <div className="pb-5">
-              <Logo />
-            </div>
-            <div className="mb-5 border-t border-accent"></div>
-            <nav className="flex-1">
-              <ul className="space-y-1">
-                {navItems.map(({ name, path }) => (
-                  <li key={path}>
-                    <NavLink to={path} className={getNavLinkClass}>
-                      {name}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
-          <div className="mt-auto flex items-center gap-3 rounded-md bg-green-200 p-3">
-            <img
-              src={user?.image}
-              alt="User"
-              className="h-10 w-10 rounded-full object-cover ring-1 ring-accent ring-offset-2"
-            />
-            <div>
-              <h2 className="max-w-[150px] truncate text-sm font-semibold">
-                {user?.name}
-              </h2>
-              <p className="max-w-[150px] truncate text-xs">{user?.email}</p>
-            </div>
-          </div>
-        </aside>
 
-        {/* === Main content wrapper === */}
-
-        <div className="flex flex-1 flex-col overflow-hidden rounded-lg">
-          {/* Mobile Top Bar */}
-          <header className="flex items-center justify-between border-b border-accent/30 p-4 md:hidden">
+      {/* ====== Sidebar (Desktop) ====== */}
+      <aside className="hidden w-64 flex-col bg-green-100 p-4 shadow-md md:flex">
+        <div>
+          <div className="pb-5">
             <Logo />
-            <button onClick={() => setSidebarOpen(true)}>
-              <Menu className="h-6 w-6" />
-            </button>
-          </header>
-
-          {/* Main Content (Scrolls independently) */}
-          <main className="flex-1 overflow-y-auto rounded-t-xl">
-            <PageTransitionWrapper>
-              <Outlet />
-            </PageTransitionWrapper>
-            {/* <Footer /> */}
-          </main>
+          </div>
+          <div className="mb-5 border-t border-accent"></div>
+          <nav className="flex-1">
+            <ul className="space-y-1">
+              {navItems.map(({ name, path }) => (
+                <li key={path}>
+                  <NavLink to={path} className={getNavLinkClass}>
+                    {name}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
+        <div className="mt-auto flex items-center gap-3 rounded-md bg-green-200 p-3">
+          <img
+            src={user?.image}
+            alt="User"
+            className="h-10 w-10 rounded-full object-cover ring-1 ring-accent ring-offset-2"
+          />
+          <div>
+            <h2 className="max-w-[150px] truncate text-sm font-semibold">
+              {user?.name}
+            </h2>
+            <p className="max-w-[150px] truncate text-xs">{user?.email}</p>
+          </div>
+        </div>
+      </aside>
+
+      {/* ====== Main Content ====== */}
+      <div className="flex flex-1 flex-col min-h-screen">
+        {/* Topbar (Mobile) */}
+        <header className="flex items-center justify-between border-b border-accent/30 p-4 md:hidden">
+          <Logo />
+          <button onClick={() => setSidebarOpen(true)}>
+            <Menu className="h-6 w-6" />
+          </button>
+        </header>
+
+        {/* Scrollable Content Area */}
+        <main className="flex-1 overflow-y-auto p-4 min-h-screen">
+          <PageTransitionWrapper>
+            <Outlet />
+          </PageTransitionWrapper>
+        </main>
       </div>
     </div>
   );

@@ -170,7 +170,7 @@ const router = createBrowserRouter([
       {
         path: "manage-stories",
         element: (
-          <RoleBasedRoute allowedRoles={["tourist"]}>
+          <RoleBasedRoute allowedRoles={["tourist","guide"]}>
             <ManageStories />
           </RoleBasedRoute>
         ),

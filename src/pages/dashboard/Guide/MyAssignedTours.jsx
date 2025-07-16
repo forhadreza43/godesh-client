@@ -62,30 +62,41 @@ const MyAssignedTours = () => {
     onError: () => toast.error("Failed to reject tour"),
   });
 
-  useEffect(() => {
-    const fetchDetails = async () => {
-      const packageIds = [...new Set(bookings.map((b) => b.packageId))];
-      const touristIds = [...new Set(bookings.map((b) => b.touristId))];
-      const newPkgMap = {};
-      const newUserMap = {};
+useEffect(() => {
+  const fetchDetails = async () => {
+    const packageIds = [...new Set(bookings.map((b) => b.packageId))];
+    const touristIds = [...new Set(bookings.map((b) => b.touristId))];
+    const newPkgMap = {};
+    const newUserMap = {};
 
-      await Promise.all([
-        ...packageIds.map(async (id) => {
+    await Promise.allSettled([
+      ...packageIds.map(async (id) => {
+        try {
           const res = await axiosSecure.get(`/packages/${id}`);
           newPkgMap[id] = res.data;
-        }),
-        ...touristIds.map(async (id) => {
+        } catch (err) {
+          console.error(`Failed to fetch package ${id}`, err);
+        }
+      }),
+      ...touristIds.map(async (id) => {
+        try {
           const res = await axiosSecure.get(`/users/${id}`);
           newUserMap[id] = res.data;
-        }),
-      ]);
+        } catch (err) {
+          console.error(`Failed to fetch user ${id}`, err);
+        }
+      }),
+    ]);
 
-      setPackageMap(newPkgMap);
-      setTouristMap(newUserMap);
-    };
+    setPackageMap(newPkgMap);
+    setTouristMap(newUserMap);
+  };
 
-    if (bookings.length) fetchDetails();
-  }, [bookings, axiosSecure]);
+  if (bookings.length) {
+    fetchDetails();
+  }
+}, [bookings, axiosSecure]);
+
 
   if (isLoading || userLoading) return <Loading />;
   return (
@@ -131,7 +142,7 @@ const MyAssignedTours = () => {
                   <td className="px-4 py-2">
                     {new Date(b.tourDate).toLocaleDateString()}
                   </td>
-                  <td className="px-4 py-2">৳ {b.price}</td>
+                  <td className="px-4 py-2">$ {b.price}</td>
                   <td className="px-4 py-2 capitalize">{b.status}</td>
                   <td className="space-x-2 px-4 py-2">
                     <button

@@ -123,7 +123,7 @@ const AddPackages = () => {
   };
 
   return (
-    <div className="mx-auto h-screen py-10  w-full rounded-lg bg-white">
+    <div className="mx-auto  py-10 min-h-screen w-full rounded-lg bg-white">
       {/* <Header title="Add New Tour Package" /> */}
       <h2 className="mb-6 text-center text-2xl font-bold">
         Add New Tour Package
@@ -177,7 +177,7 @@ const AddPackages = () => {
           </div>
           {/* Price */}
           <div className="w-full">
-            <label className="mb-1 block font-medium">Price (BDT)</label>
+            <label className="mb-1 block font-medium">Price ($)</label>
             <input
               type="number"
               {...register("price", { required: true, min: 0 })}

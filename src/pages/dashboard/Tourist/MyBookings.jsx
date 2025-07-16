@@ -68,7 +68,7 @@ const MyBookings = () => {
     if (bookings.length) fetchRelatedData();
   }, [bookings, axiosSecure]);
 
-  if (isLoading || userLoading) return <Loading />;
+  // if (isLoading || userLoading) return <Loading />;
 
   const filteredBookings = statusFilter
     ? bookings.filter((b) => b.status.toLowerCase() === statusFilter)
@@ -76,81 +76,90 @@ const MyBookings = () => {
 
   return (
     <div className="mx-auto w-11/12 py-10">
-      <h2 className="mb-6 text-2xl font-bold">My Bookings</h2>
+      {(isLoading || userLoading) && (
+        <div className="flex h-screen items-center justify-center">
+          <Loading fullscreen={false} />
+        </div>
+      )}
+      {!isLoading && !userLoading && (
+        <>
+          <h2 className="mb-6 text-2xl font-bold">My Bookings</h2>
 
-      <div className="mb-4">
-        <label className="mr-2 font-medium">Filter by status:</label>
-        <select
-          className="input rounded border px-2 py-1"
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-        >
-          <option value="">All</option>
-          <option value="pending">Pending</option>
-          <option value="in review">In Review</option>
-          <option value="accepted">Accepted</option>
-          <option value="rejected">Rejected</option>
-        </select>
-      </div>
+          <div className="mb-4">
+            <label className="mr-2 font-medium">Filter by status:</label>
+            <select
+              className="input rounded border px-2 py-1"
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+            >
+              <option value="">All</option>
+              <option value="pending">Pending</option>
+              <option value="in review">In Review</option>
+              <option value="accepted">Accepted</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead>
-            <tr>
-              <th className="px-4 py-2 text-left">Package</th>
-              <th className="px-4 py-2 text-left">Guide</th>
-              <th className="px-4 py-2 text-left">Tour Date</th>
-              <th className="px-4 py-2 text-left">Price</th>
-              <th className="px-4 py-2 text-left">Status</th>
-              <th className="px-4 py-2 text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-100">
-            {filteredBookings.map((booking) => {
-              const pkg = packageMap[booking.packageId];
-              return (
-                <tr key={booking._id}>
-                  <td className="px-4 py-2">
-                    {pkg?.packageName || "Loading..."}
-                  </td>
-                  <td className="px-4 py-2">
-                    {guideMap[booking.guideId] || "Loading..."}
-                  </td>
-                  <td className="px-4 py-2">
-                    {new Date(booking.tourDate).toLocaleDateString()}
-                  </td>
-                  <td className="px-4 py-2">৳ {booking.price}</td>
-                  <td className="px-4 py-2 capitalize">
-                    {booking.status.replace("in review", "In Review")}
-                  </td>
-                  <td className="space-x-2 px-4 py-2">
-                    {booking.status === "pending" && (
-                      <>
-                        <button
-                          onClick={() =>
-                            navigate(`/dashboard/payment/${booking._id}`)
-                          }
-                          className="btn btn-sm btn-success"
-                        >
-                          Pay
-                        </button>
-                        <button
-                          onClick={() =>
-                            cancelBookingMutation.mutate(booking._id)
-                          }
-                          className="btn btn-sm btn-error"
-                        >
-                          Cancel
-                        </button>
-                      </>
-                    )}
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2 text-left">Package</th>
+                  <th className="px-4 py-2 text-left">Guide</th>
+                  <th className="px-4 py-2 text-left">Tour Date</th>
+                  <th className="px-4 py-2 text-left">Price</th>
+                  <th className="px-4 py-2 text-left">Status</th>
+                  <th className="px-4 py-2 text-left">Actions</th>
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {filteredBookings.map((booking) => {
+                  const pkg = packageMap[booking.packageId];
+                  return (
+                    <tr key={booking._id}>
+                      <td className="px-4 py-2">
+                        {pkg?.packageName || "Loading..."}
+                      </td>
+                      <td className="px-4 py-2">
+                        {guideMap[booking.guideId] || "Loading..."}
+                      </td>
+                      <td className="px-4 py-2">
+                        {new Date(booking.tourDate).toLocaleDateString()}
+                      </td>
+                      <td className="px-4 py-2">৳ {booking.price}</td>
+                      <td className="px-4 py-2 font-semibold text-green-700 capitalize">
+                        {booking.status.replace("in review", "In Review")}
+                      </td>
+                      <td className="space-x-2 px-4 py-2">
+                        {booking.status === "pending" && (
+                          <>
+                            <button
+                              onClick={() =>
+                                navigate(`/dashboard/payment/${booking._id}`)
+                              }
+                              className="btn btn-sm cursor-pointer rounded bg-accent px-2 py-1 text-xs text-white duration-300 hover:bg-green-500"
+                            >
+                              Pay
+                            </button>
+                            <button
+                              onClick={() =>
+                                cancelBookingMutation.mutate(booking._id)
+                              }
+                              className="btn btn-sm cursor-pointer rounded bg-red-500 px-2 py-1 text-xs text-white duration-300 hover:bg-red-600"
+                            >
+                              Cancel
+                            </button>
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
     </div>
   );
 };

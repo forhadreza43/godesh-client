@@ -20,7 +20,6 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <LenisProvider />
         <RouterProvider router={router} />
         <Toaster position="top-right" reverseOrder={false} />
       </AuthProvider>

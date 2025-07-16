@@ -13,7 +13,7 @@ const AllStories = () => {
     queryKey: ["all-stories", page],
     queryFn: async () => {
       const res = await axiosSecure.get("/all-stories", {
-        params: { page, limit, status: "approved" },
+        params: { page, limit },
       });
       return res.data;
     },

@@ -50,32 +50,26 @@ const AuthProvider = ({ children }) => {
     });
   };
 
-  // onAuthStateChange
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser?.email) {
-        setUser(currentUser);
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    if (currentUser?.email) {
+      setUser(currentUser);
 
-        // Get JWT token
-        await axios.post(
-          `${import.meta.env.VITE_API_URL}/jwt`,
-          {
-            email: currentUser?.email,
-          },
-          { withCredentials: true },
-        );
-      } else {
-        setUser(currentUser);
-        await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
-          withCredentials: true,
-        });
-      }
-      setLoading(false);
-    });
-    return () => {
-      return unsubscribe();
-    };
-  }, []);
+      // Get JWT token and store in localStorage
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {
+        email: currentUser.email,
+      });
+      localStorage.setItem("token", res.data.token); 
+    } else {
+      setUser(currentUser);
+      localStorage.removeItem("token"); 
+    }
+    setLoading(false);
+  });
+
+  return () => unsubscribe();
+}, []);
+
 
   const authInfo = {
     user,
