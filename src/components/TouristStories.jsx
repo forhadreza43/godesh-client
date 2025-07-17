@@ -11,7 +11,7 @@ const TouristStories = () => {
   const { data: stories = [], isLoading } = useQuery({
     queryKey: ["random-stories"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/stories?status=approved&random=4");
+      const res = await axiosSecure.get("/stories?random=4");
       return res.data;
     },
   });

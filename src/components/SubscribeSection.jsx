@@ -4,7 +4,7 @@ import newsImage from "../assets/newsletter-image.svg";
 import { motion } from "motion/react";
 const SubscribeSection = () => {
   return (
-    <div className="mx-auto my-16 flex max-w-6xl flex-col items-center justify-between gap-10 rounded-xl bg-gradient-to-br from-green-400 to-green-400 p-8 text-white shadow-lg md:flex-row md:p-12 py-10">
+    <div className="mx-auto my-16 flex w-11/12 max-w-6xl flex-col items-center justify-between gap-10 rounded-xl bg-gradient-to-br from-green-400 to-green-400 p-8 text-white shadow-lg md:flex-row md:p-12 py-10">
       {/* Left Image */}
       <motion.div
         className="flex justify-center md:w-1/2"
