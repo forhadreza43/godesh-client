@@ -230,7 +230,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/community"
+                to="/all-stories"
                 onClick={() => setMobileMenuOpen(false)}
                 className={({ isActive }) =>
                   isActive ? "border-b-2 border-accent pb-1 text-accent" : ""
@@ -241,7 +241,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/about"
+                to="/about-us"
                 onClick={() => setMobileMenuOpen(false)}
                 className={({ isActive }) =>
                   isActive ? "border-b-2 border-accent pb-1 text-accent" : ""
@@ -252,7 +252,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/trips"
+                to="/all-packages"
                 onClick={() => setMobileMenuOpen(false)}
                 className={({ isActive }) =>
                   isActive ? "border-b-2 border-accent pb-1 text-accent" : ""
