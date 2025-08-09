@@ -59,3 +59,15 @@ A full-stack **Tourism Management System** that connects tourists with tour guid
 - 🔒 Secure API access with `axiosSecure`
 
 ---
+
+## 🛠️ Setup Instructions
+
+> Make sure you have **Node.js**, **MongoDB**, and a `.env` file set up.
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/tourism-management-system.git
+cd tourism-management-system
+
+---
