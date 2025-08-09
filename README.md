@@ -1,5 +1,5 @@
 # 🌍 Tourism Management System
-
+<img src="https://i.ibb.co.com/0R0YrqNV/Screenshot-2025-08-07-213748.png" alt="Banner" width="100%" />
 A full-stack **Tourism Management System** that connects tourists with tour guides through a streamlined booking and storytelling platform. The system supports **role-based access** for Admins, Tourists, and Guides, and includes features like booking management, payments (via Stripe), guide applications, story sharing, and more.
 
 ## 🚀 Live Site
@@ -41,11 +41,11 @@ A full-stack **Tourism Management System** that connects tourists with tour guid
 
 ## 💻 Tech Stack
 
-- **Frontend:** React, TailwindCSS, React Router, React Hook Form, React Query  
+- **Frontend:** React, TailwindCSS, React Router, React Hook Form, Tanstack Query, Axios  
 - **Backend:** Node.js, Express.js, MongoDB  
 - **Authentication:** JWT + Custom Role-Based Middleware  
 - **Payments:** Stripe  
-- **File Uploads:** Cloudinary  
+- **Image Uploads:** Cloudinary  
 - **UI Enhancements:** React Hot Toast, Reusable Modal Components  
 
 ---
