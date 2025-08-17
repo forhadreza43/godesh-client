@@ -70,7 +70,7 @@ const Profile = () => {
   };
 
   if (isLoading || loading || authLoading) return <Loading />;
-  
+  console.log(userData);
   return (
     <div className="mx-auto max-w-md">
       {role && role !== "admin" && (

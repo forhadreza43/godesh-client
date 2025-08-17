@@ -34,6 +34,7 @@ import AllGuides from "../pages/AllGuides";
 import AccessDenied from "../pages/AccessDenied";
 import RoleBasedRoute from "./RoleBasedRoute";
 import Offer from "../pages/Offer";
+import NotFound from "../pages/NotFound";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 
@@ -235,6 +236,10 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
