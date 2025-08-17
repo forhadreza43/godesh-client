@@ -6,7 +6,7 @@ import {
   Users2,
   Luggage,
 } from "lucide-react";
-import whyImage from '../assets/why-image-1.svg'
+import whyImage from "../assets/why-image-1.svg";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "motion/react";
 const featuresLeft = [
@@ -47,7 +47,7 @@ const featuresRight = [
 
 const WhyChooseUs = () => {
   return (
-    <div className="mx-auto w-11/12 text-center my-10">
+    <div className="mx-auto w-11/12 max-w-[1440px] py-10 text-center md:py-20">
       <h2 className="mb-12 text-3xl font-bold md:text-4xl">
         Why{" "}
         <span className="relative text-accent underline decoration-wavy decoration-2">

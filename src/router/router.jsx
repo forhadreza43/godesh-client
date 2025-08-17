@@ -33,6 +33,7 @@ import AboutUs from "../pages/AboutUs";
 import AllGuides from "../pages/AllGuides";
 import AccessDenied from "../pages/AccessDenied";
 import RoleBasedRoute from "./RoleBasedRoute";
+import Offer from "../pages/Offer";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 
@@ -77,9 +78,13 @@ const router = createBrowserRouter([
         path: "/forgetPassword",
         element: <ForgotPassword />,
       },
-      {
+            {
         path: "/about-us",
         element: <AboutUs />,
+      },
+      {
+        path: "/offer",
+        element: <Offer />,
       },
     ],
   },

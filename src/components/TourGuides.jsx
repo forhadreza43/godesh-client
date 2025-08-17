@@ -10,7 +10,7 @@ const TourGuides = () => {
   const { data: guides = [], isLoading } = useQuery({
     queryKey: ["random-guides"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users/role/guide?limit=6");
+      const res = await axiosSecure.get("/users/role/guide?limit=4");
       return res.data;
     },
   });
@@ -19,7 +19,7 @@ const TourGuides = () => {
 
   return (
     <div className="mx-auto pt-5 pb-10">
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mx-auto grid grid-cols-1 place-content-center gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {guides?.map((guide) => (
           <GuideCard guide={guide} key={guide._id} />
         ))}

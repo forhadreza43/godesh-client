@@ -5,12 +5,18 @@ import RandomPackages from "./RandomPackages";
 import { Link } from "react-router";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import TourGuides from "./TourGuides";
+import Heading from "./shared/Heading";
+import SubHeading from "./shared/SubHeading";
 
 const TourismAndTravelGuide = () => {
   return (
-    <div className="mx-auto w-11/12 pb-10">
+    <div className="mx-auto w-11/12 max-w-[1440px] py-10 md:py-20">
+      <Heading>Packages and Travel Guides</Heading>
+      <SubHeading>
+        Explore our curated travel packages and expert guides
+      </SubHeading>
       <Tabs aria-label="Tabs with icons" variant="underline">
-        <TabItem active title="Our Packages" icon={LuPackageOpen}>
+        <TabItem active title="Packages" icon={LuPackageOpen}>
           <RandomPackages />
           <div className="flex justify-between">
             <div></div>
@@ -25,8 +31,8 @@ const TourismAndTravelGuide = () => {
             </Link>
           </div>
         </TabItem>
-        <TabItem title="Meet Our Tour Guides" icon={HiMiniUserGroup}>
-          <TourGuides/>
+        <TabItem title="Tour Guides" icon={HiMiniUserGroup}>
+          <TourGuides />
         </TabItem>
       </Tabs>
     </div>

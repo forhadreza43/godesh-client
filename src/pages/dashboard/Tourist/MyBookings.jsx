@@ -75,7 +75,7 @@ const MyBookings = () => {
     : bookings;
 
   return (
-    <div className="mx-auto w-11/12 py-10">
+    <div className="mx-auto w-11/12 max-w-[1440px] py-10">
       {(isLoading || userLoading) && (
         <div className="flex h-screen items-center justify-center">
           <Loading fullscreen={false} />

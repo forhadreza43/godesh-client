@@ -88,7 +88,7 @@ const PackageDetails = () => {
   if (isLoading || authLoading || userLoading) return <Loading />;
   //   console.log(userData);
   return (
-    <div className="mx-auto my-10 w-11/12">
+    <div className="mx-auto my-10 w-11/12 max-w-[1440px]">
       {/* Gallery Section */}
       <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-3">
         {packageData.galleryImages?.map((img, i) => (

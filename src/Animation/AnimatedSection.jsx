@@ -38,7 +38,7 @@ const AnimatedSection = ({ children, animation = "fade-up" }) => {
       scrollTrigger: {
         trigger: sectionRef.current,
         start: "top 80%",
-        toggleActions: "play none none reverse",
+        toggleActions: "play none none",
       },
     });
   }, [animation]);

@@ -17,9 +17,9 @@ const RandomPackages = () => {
 
   return (
     <div className="mx-auto pt-5 pb-10">
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mx-auto grid grid-cols-1 place-content-center gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {isLoading
-          ? [...Array(3)].map((_, i) => <PackageSkeleton key={i} />)
+          ? [...Array(4)].map((_, i) => <PackageSkeleton key={i} />)
           : packages.map((pack) => <PackageCard key={pack._id} pack={pack} />)}
       </div>
     </div>

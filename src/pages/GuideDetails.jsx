@@ -41,37 +41,32 @@ const GuideDetails = () => {
   if (!guide) return <p className="text-center">No guide found.</p>;
   console.log(stories);
   return (
-    <div className="w-11/12 mx-auto py-10">
-
-        <div className="mb-4 flex flex-col md:flex-row items-center gap-4">
-          <img
-            src={guide.image}
-            alt={guide.name}
-            className="h-24 w-24 rounded-full object-cover"
-          />
-          <div>
-            <h2 className="text-2xl font-bold">{guide.name}</h2>
-            <p className="text-gray-600">{guide.email}</p>
-            <p className="text-sm text-gray-400">
-              Joined: {new Date(guide.createdAt).toLocaleDateString()}
-            </p>
-          </div>
+    <div className="mx-auto w-11/12 max-w-[1440px] py-10">
+      <div className="mb-4 flex flex-col items-center gap-4 md:flex-row">
+        <img
+          src={guide.image}
+          alt={guide.name}
+          className="h-24 w-24 rounded-full object-cover"
+        />
+        <div>
+          <h2 className="text-2xl font-bold">{guide.name}</h2>
+          <p className="text-gray-600">{guide.email}</p>
+          <p className="text-sm text-gray-400">
+            Joined: {new Date(guide.createdAt).toLocaleDateString()}
+          </p>
         </div>
+      </div>
 
-        <div className="mt-10">
-          <h3 className="mb-5 text-xl font-semibold">
-            Stories by {guide.name}
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-            {stories && stories.length > 0 ? (
-              stories.map((story) => (
-                <StoryList key={story._id} story={story} />
-              ))
-            ) : (
-              <p className="text-gray-500 italic">No stories found.</p>
-            )}
-          </div>
+      <div className="mt-10">
+        <h3 className="mb-5 text-xl font-semibold">Stories by {guide.name}</h3>
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {stories && stories.length > 0 ? (
+            stories.map((story) => <StoryList key={story._id} story={story} />)
+          ) : (
+            <p className="text-gray-500 italic">No stories found.</p>
+          )}
         </div>
+      </div>
     </div>
   );
 };

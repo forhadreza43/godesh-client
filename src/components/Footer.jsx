@@ -5,7 +5,7 @@ import { FaFacebook, FaInstagramSquare, FaTwitter } from "react-icons/fa";
 const Footer = () => {
   return (
     <footer className="divide-y bg-green-50 dark:bg-gray-100 dark:text-primary">
-      <div className="w-11/12 mx-auto flex flex-col justify-between space-y-8 py-10 lg:flex-row lg:space-y-0">
+      <div className="mx-auto flex w-11/12 max-w-[1440px] flex-col justify-between space-y-8 py-10 lg:flex-row lg:space-y-0">
         <div className="lg:w-1/3">
           <Logo />
         </div>
@@ -89,8 +89,8 @@ const Footer = () => {
             </div>
           </div>
         </div>
-          </div>
-          
+      </div>
+
       <div className="py-6 text-center text-sm dark:text-gray-600">
         © 2025 GoDesh All rights reserved.
       </div>

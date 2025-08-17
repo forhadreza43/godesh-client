@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <div className="bg-gradient-to-b from-green-50 to-green-100">
       <section className="py-10 sm:py-16 lg:py-24">
-        <div className="mx-auto w-11/12">
+        <div className="mx-auto w-11/12 max-w-[1440px]">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div className="order-2 lg:order-1">
               <h1 className="text-3xl font-bold text-primary sm:text-5xl lg:text-6xl">

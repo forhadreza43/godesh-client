@@ -39,11 +39,11 @@ const Navbar = () => {
         scrolled ? "border-b border-accent/30" : ""
       }`}
     >
-      <div className="mx-auto w-11/12">
+      <div className="mx-auto w-11/12 max-w-[1440px]">
         <div className="flex h-20 items-center justify-between">
           <Logo />
           {/* Desktop Menu */}
-          <ul className="hidden space-x-8 font-medium text-gray-700 md:flex">
+          <ul className="hidden space-x-8 font-medium text-gray-700 lg:flex">
             <li>
               <NavLink
                 to="/"
@@ -58,18 +58,6 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/all-stories"
-                className={({ isActive }) =>
-                  isActive
-                    ? "border-b-2 border-accent text-accent"
-                    : "duration-300 hover:text-accent"
-                }
-              >
-                Community
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
                 to="/all-packages"
                 className={({ isActive }) =>
                   isActive
@@ -77,9 +65,62 @@ const Navbar = () => {
                     : "duration-300 hover:text-accent"
                 }
               >
-                Trips
+                Packages
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/all-guides"
+                className={({ isActive }) =>
+                  isActive
+                    ? "border-b-2 border-accent text-accent"
+                    : "duration-300 hover:text-accent"
+                }
+              >
+                Guides
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/all-stories"
+                className={({ isActive }) =>
+                  isActive
+                    ? "border-b-2 border-accent text-accent"
+                    : "duration-300 hover:text-accent"
+                }
+              >
+                Stories
+              </NavLink>
+            </li>
+            {user && (
+              <>
+                <li>
+                  <NavLink
+                    to="/dashboard"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "border-b-2 border-accent text-accent"
+                        : "duration-300 hover:text-accent"
+                    }
+                  >
+                    Dashboard
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/offer"
+                    onClick={() => setDropdownOpen(false)}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "border-b-2 border-accent text-accent"
+                        : "duration-300 hover:text-accent"
+                    }
+                  >
+                    Offers
+                  </NavLink>
+                </li>
+              </>
+            )}
             <li>
               <NavLink
                 to="/about-us"
@@ -97,7 +138,7 @@ const Navbar = () => {
           {/* Right side */}
           <div className="flex items-center">
             {/* Desktop Auth Buttons / User Dropdown */}
-            <div className="relative hidden items-center md:flex">
+            <div className="relative hidden items-center lg:flex">
               {!user ? (
                 <>
                   <Link
@@ -136,28 +177,6 @@ const Navbar = () => {
                           {user.email}
                         </p>
                       </div>
-
-                      <ul>
-                        <li>
-                          <Link
-                            to="/dashboard"
-                            onClick={() => setDropdownOpen(false)}
-                            className="block px-4 py-2 transition duration-300 hover:bg-accent hover:text-white"
-                          >
-                            Dashboard
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            to=""
-                            onClick={() => setDropdownOpen(false)}
-                            className="flex items-center gap-2 px-4 py-2 transition duration-300 hover:bg-accent hover:text-white"
-                          >
-                            Offer <BiSolidOffer />
-                          </Link>
-                        </li>
-                      </ul>
-
                       <div className="border-t border-accent/30 px-4 pt-2">
                         <button
                           onClick={() => {
@@ -176,7 +195,7 @@ const Navbar = () => {
             </div>
 
             {/* Mobile menu button */}
-            <div className="md:hidden">
+            <div className="lg:hidden">
               <button
                 onClick={() => setMobileMenuOpen((open) => !open)}
                 className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:text-accent focus:ring-2 focus:ring-accent focus:outline-none"
@@ -215,14 +234,15 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="bg-white shadow-lg md:hidden">
+        <div className="bg-white shadow-lg lg:hidden">
           <ul className="flex flex-col space-y-3 px-4 pt-4 pb-6 font-medium text-gray-700">
             <li>
               <NavLink
                 to="/"
-                onClick={() => setMobileMenuOpen(false)}
                 className={({ isActive }) =>
-                  isActive ? "border-b-2 border-accent pb-1 text-accent" : ""
+                  isActive
+                    ? "border-b-2 border-accent text-accent"
+                    : "duration-300 hover:text-accent"
                 }
               >
                 Home
@@ -230,35 +250,38 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/all-stories"
-                onClick={() => setMobileMenuOpen(false)}
-                className={({ isActive }) =>
-                  isActive ? "border-b-2 border-accent pb-1 text-accent" : ""
-                }
-              >
-                Community
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/about-us"
-                onClick={() => setMobileMenuOpen(false)}
-                className={({ isActive }) =>
-                  isActive ? "border-b-2 border-accent pb-1 text-accent" : ""
-                }
-              >
-                About Us
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
                 to="/all-packages"
-                onClick={() => setMobileMenuOpen(false)}
                 className={({ isActive }) =>
-                  isActive ? "border-b-2 border-accent pb-1 text-accent" : ""
+                  isActive
+                    ? "border-b-2 border-accent text-accent"
+                    : "duration-300 hover:text-accent"
                 }
               >
-                Trips
+                Packages
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/all-guides"
+                className={({ isActive }) =>
+                  isActive
+                    ? "border-b-2 border-accent text-accent"
+                    : "duration-300 hover:text-accent"
+                }
+              >
+                Guides
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/all-stories"
+                className={({ isActive }) =>
+                  isActive
+                    ? "border-b-2 border-accent text-accent"
+                    : "duration-300 hover:text-accent"
+                }
+              >
+                Stories
               </NavLink>
             </li>
 
@@ -285,28 +308,36 @@ const Navbar = () => {
               </>
             ) : (
               <>
+                <li>
+                  <NavLink
+                    to="/dashboard"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "border-b-2 border-accent text-accent"
+                        : "duration-300 hover:text-accent"
+                    }
+                  >
+                    Dashboard
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/offer"
+                    onClick={() => setDropdownOpen(false)}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "border-b-2 border-accent text-accent"
+                        : "duration-300 hover:text-accent"
+                    }
+                  >
+                    Offers
+                  </NavLink>
+                </li>
                 <li className="border-t border-gray-200 pt-3">
                   <p className="truncate font-semibold">{user.displayName}</p>
                   <p className="truncate text-sm text-gray-500">{user.email}</p>
                 </li>
-                <li>
-                  <Link
-                    to="/dashboard"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block rounded px-2 py-1 hover:bg-accent hover:text-white"
-                  >
-                    Dashboard
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/offer-announcements"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 rounded px-2 py-1 hover:bg-accent hover:text-white"
-                  >
-                    Offer <BiSolidOffer />
-                  </Link>
-                </li>
+
                 <li>
                   <button
                     onClick={() => {

@@ -44,23 +44,11 @@ const AllPackages = () => {
   const totalPages = result.totalPages || 1;
   //   console.log(packages);
   return (
-    <div className="mx-auto w-11/12 py-10">
+    <div className="mx-auto w-11/12 max-w-[1440px] py-10">
       <h2 className="mb-10 text-center text-3xl font-bold text-primary">
         All Packages
       </h2>
       <div className="mb-6 flex flex-col items-center justify-between gap-4 md:flex-row">
-        <select
-          className="input rounded-lg px-2 py-2"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        >
-          <option value="">All Categories</option>
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
         <input
           type="text"
           placeholder="Search trip title..."
@@ -68,28 +56,42 @@ const AllPackages = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-
-        <select
-          className="input rounded-lg px-2 py-2"
-          value={sort}
-          onChange={(e) => setSort(e.target.value)}
-        >
-          {sortOptions.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+        <div className="flex w-full flex-col justify-end gap-4 md:flex-row md:gap-4">
+          <select
+            className="input rounded-lg px-2 py-2"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="">All Categories</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+          <select
+            className="input rounded-lg px-2 py-2"
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
+          >
+            {sortOptions.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {isLoading ? (
-        <div className="flex justify-between gap-5">
+        <div className="mx-auto grid grid-cols-1 place-content-center gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <PackageSkeleton />
           <PackageSkeleton />
           <PackageSkeleton />
           <PackageSkeleton />
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto grid grid-cols-1 place-content-center gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {packages.map((pkg) => (
             <PackageCard key={pkg._id} pack={pkg} />
           ))}
