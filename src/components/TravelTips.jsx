@@ -23,7 +23,7 @@ const TravelTips = () => {
   ];
 
   return (
-    <div className="bg-gray-50 py-10 md:py-20">
+    <div className="bg-gray-50 py-10 md:py-15">
       <div className="mx-auto w-11/12 max-w-[1440px]">
         <Heading>Travel Tips</Heading>
         <SubHeading>Your guide to a seamless journey</SubHeading>

@@ -123,7 +123,7 @@ const AddPackages = () => {
   };
 
   return (
-    <div className="mx-auto  py-10 min-h-screen w-full rounded-lg bg-white">
+    <div className="mx-auto  py-10 w-full rounded-lg">
       {/* <Header title="Add New Tour Package" /> */}
       <h2 className="mb-6 text-center text-2xl font-bold">
         Add New Tour Package

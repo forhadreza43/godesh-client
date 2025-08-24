@@ -15,11 +15,11 @@ const SubscribeSection = () => {
 
     };
   return (
-    <div className="py-10 md:py-20">
+    <div className="py-10 md:py-15">
       <div className="mx-auto my-16 flex w-11/12 max-w-[1440px] flex-col items-center justify-between gap-10 rounded-xl bg-gradient-to-br from-green-400 to-green-400 p-8 text-white shadow-lg md:flex-row md:p-12">
         {/* Left Image */}
         <motion.div
-          className="flex justify-center md:w-1/2"
+          className="hidden lg:flex justify-center md:w-1/2"
           animate={{
             y: [0, -10, 0],
           }}

@@ -56,7 +56,7 @@ const ManageAdminProfile = () => {
       </div>
 
       {/* Admin Info */}
-      <div className="rounded-lg bg-green-100 py-20 shadow">
+      <div className="rounded-lg bg-green-100 py-15 shadow">
         <Profile />
       </div>
 

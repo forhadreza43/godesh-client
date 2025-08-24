@@ -122,8 +122,8 @@ const AddStory = () => {
   };
   
   return (
-    <div className="bg-green-50 h-full m-5 rounded-lg">
-      <div className="mx-auto  max-w-3xl rounded p-6">
+    <div className="min-h-[90vh] rounded-lg">
+      <div className="mx-auto max-w-3xl rounded p-6">
         <h2 className="mb-6 text-center text-2xl font-bold">
           Add a Travel Story
         </h2>

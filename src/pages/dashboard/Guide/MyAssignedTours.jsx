@@ -100,7 +100,7 @@ useEffect(() => {
 
   if (isLoading || userLoading) return <Loading />;
   return (
-    <div className="mx-auto m-5 py-10 px-5">
+    <div className="mx-auto py-8 px-5">
       <h2 className="mb-6 text-2xl font-bold">My Assigned Tours</h2>
 
       <div className="mb-4">

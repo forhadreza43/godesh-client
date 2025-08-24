@@ -124,7 +124,7 @@ const DashboardLayout = () => {
         </div>
         <div className="mt-auto flex items-center gap-3 rounded-md bg-green-200 p-3">
           <img
-            src={user?.image}
+            src={user?.image || "/default-avatar.png"}
             alt="User"
             className="h-10 w-10 rounded-full object-cover ring-1 ring-accent ring-offset-2"
           />
@@ -138,7 +138,7 @@ const DashboardLayout = () => {
       </aside>
 
       {/* ====== Main Content ====== */}
-      <div className="flex flex-1 flex-col min-h-screen">
+      <div className="flex min-h-screen flex-1 flex-col">
         {/* Topbar (Mobile) */}
         <header className="flex items-center justify-between border-b border-accent/30 p-4 md:hidden">
           <Logo />
@@ -148,7 +148,7 @@ const DashboardLayout = () => {
         </header>
 
         {/* Scrollable Content Area */}
-        <main className="flex-1 overflow-y-auto p-4 min-h-screen">
+        <main className="min-h-screen flex-1 overflow-y-auto p-4">
           <PageTransitionWrapper>
             <Outlet />
           </PageTransitionWrapper>

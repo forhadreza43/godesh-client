@@ -1,4 +1,4 @@
-import { Link } from "react-router"; // You can change to "react-router" if using that directly
+import { Link } from "react-router";
 import { useAuth } from "../../hooks/useAuth";
 import useRole from "../../hooks/useRole";
 import Loading from "../../components/shared/Loading";
@@ -6,8 +6,8 @@ import Header from "../../components/shared/Dashboard/Header";
 
 const Profile = () => {
   const { user } = useAuth();
-    const [role, loading] = useRole();
-    // console.log(role);
+  const [role, loading] = useRole();
+  // console.log(role);
 
   if (!user || loading) return <Loading />;
 
@@ -21,7 +21,9 @@ const Profile = () => {
             alt="Profile"
             className="h-32 w-32 rounded-full border-4 border-accent object-cover"
           />
-          <span className="text-xs font-semibold bg-accent px-6 py-2 rounded-full text-white">{role && role?.toUpperCase() || ""}</span>
+          <span className="rounded-full bg-accent px-6 py-2 text-xs font-semibold text-white">
+            {(role && role?.toUpperCase()) || ""}
+          </span>
           <div className="w-full max-w-md space-y-3 md:ml-6">
             <div>
               <p className="rounded px-4 py-2 text-gray-800">

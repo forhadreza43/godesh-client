@@ -12,6 +12,8 @@ import { useAuth } from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import Button from "../components/Button/Button";
 
+const isOffer = true;
+
 const PackageDetails = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
@@ -20,6 +22,8 @@ const PackageDetails = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+  // const path = window.location.pathname;
 
   const {
     register,
@@ -61,17 +65,28 @@ const PackageDetails = () => {
 
   const handleBookNow = () => {
     if (!user) return navigate("/login");
-    const { tourDate, guideId } = formData;
+    const { tourDate, guideId, coupon } = formData;
+    let Price = packageData?.price;
+    if (coupon && isOffer) {
+      if (coupon === "SUMMER20") {
+        Price = Price - Price * 0.2;
+      } else if (coupon === "FLASH50") {
+        Price = Price - Price * 0.5;
+      } else if (coupon === "WINTER30") {
+        Price = Price - Price * 0.3;
+      }
+    }
     const booking = {
       packageId: id,
       packageName: packageData?.packageName,
       touristId: userData?._id,
       touristEmail: userData?.email,
-      price: packageData?.price,
+      price: Price,
       guideId,
       tourDate,
       status: "pending",
     };
+    // console.log(booking);
     mutation.mutate(booking);
     setIsConfirmOpen(false);
   };
@@ -86,7 +101,6 @@ const PackageDetails = () => {
   }, [register]);
 
   if (isLoading || authLoading || userLoading) return <Loading />;
-  //   console.log(userData);
   return (
     <div className="mx-auto my-10 w-11/12 max-w-[1440px]">
       {/* Gallery Section */}
@@ -254,6 +268,17 @@ const PackageDetails = () => {
               </p>
             )}
           </div>
+          {isOffer && (
+            <div className="mb-3 flex-1">
+              <label className="mb-1 block font-medium">Apply Coupon</label>
+              <input
+                className="input w-full"
+                id="coupon"
+                placeholder="Enter coupon code"
+                {...register("coupon")}
+              />
+            </div>
+          )}
         </div>
 
         <Button

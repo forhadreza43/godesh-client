@@ -126,7 +126,7 @@ const MyBookings = () => {
                       <td className="px-4 py-2">
                         {new Date(booking.tourDate).toLocaleDateString()}
                       </td>
-                      <td className="px-4 py-2">৳ {booking.price}</td>
+                      <td className="px-4 py-2">$ {booking.price}</td>
                       <td className="px-4 py-2 font-semibold text-green-700 capitalize">
                         {booking.status.replace("in review", "In Review")}
                       </td>

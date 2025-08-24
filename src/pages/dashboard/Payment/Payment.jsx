@@ -164,7 +164,7 @@ const Payment = () => {
         <h2 className="mb-4 text-xl font-bold">
           Pay for: {booking.packageName}
         </h2>
-        <p className="mb-2">Amount: ৳ {booking.price}</p>
+        <p className="mb-2">Amount: $ {booking.price}</p>
 
         <CardElement
           options={{
@@ -187,7 +187,7 @@ const Payment = () => {
             disabled={!stripe || processing || !clientSecret}
             className="btn btn-sm cursor-pointer rounded bg-green-500 px-3 py-1 text-white duration-300 hover:bg-green-600 disabled:opacity-50"
           >
-            {processing ? "Processing..." : `Pay ৳${booking.price}`}
+            {processing ? "Processing..." : `Pay $${booking.price}`}
           </button>
           <button
             type="button"

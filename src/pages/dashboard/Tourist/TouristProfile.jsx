@@ -65,7 +65,7 @@ const TouristProfile = () => {
       </h2>
       <div className="flex flex-col items-center gap-2">
         <img
-          src={userData?.image}
+          src={userData?.image || "/default-avatar.png"}
           alt="User"
           className="h-24 w-24 rounded-full border object-cover"
         />

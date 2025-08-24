@@ -10,7 +10,7 @@ import SubHeading from "./shared/SubHeading";
 
 const TourismAndTravelGuide = () => {
   return (
-    <div className="mx-auto w-11/12 max-w-[1440px] py-10 md:py-20">
+    <div className="mx-auto w-11/12 max-w-[1440px] py-10 md:py-15">
       <Heading>Packages and Travel Guides</Heading>
       <SubHeading>
         Explore our curated travel packages and expert guides

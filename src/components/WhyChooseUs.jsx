@@ -47,7 +47,7 @@ const featuresRight = [
 
 const WhyChooseUs = () => {
   return (
-    <div className="mx-auto w-11/12 max-w-[1440px] py-10 text-center md:py-20">
+    <div className="mx-auto w-11/12 max-w-[1440px] py-10 text-center md:py-15">
       <h2 className="mb-12 text-3xl font-bold md:text-4xl">
         Why{" "}
         <span className="relative text-accent underline decoration-wavy decoration-2">

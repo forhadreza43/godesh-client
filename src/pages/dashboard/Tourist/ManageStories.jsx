@@ -54,7 +54,7 @@ const ManageStories = () => {
   // if (isLoading) return <Loading />;
   // console.log(stories);
   return (
-    <div className="p-4">
+    <div className="">
       {isLoading && (
         <div className="flex h-screen items-center justify-center">
           <Loading fullscreen={false} />
@@ -65,7 +65,7 @@ const ManageStories = () => {
           No story found.
         </p>
       ) : (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 ">
           {stories.map((story) => (
             <StoryCard
               key={story._id}
